@@ -25,32 +25,52 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
+//Route Page Places
 app.get("/places", async (req, res) => {
   const places = await Place.find();
   res.render("places/index", { places });
 });
 
+//Route Page Create
+app.get("/places/create", (req, res) => {
+  res.render("places/create");
+});
+
+//Route Page Edit
+app.get("/places/:id/edit", async (req, res) => {
+  const { id } = req.params;
+  const place = await Place.findById(id);
+  res.render("places/edit", { place });
+});
+
+//Create Data
 app.post("/places", async (req, res) => {
   const place = new Place(req.body);
   await place.save();
   res.redirect(`/places/${place._id}`);
 });
 
-app.get("/places/create", (req, res) => {
-  res.render("places/create");
-});
-
+// Read Data
 app.get("/places/:id", async (req, res) => {
   const { id } = req.params;
   const place = await Place.findById(id);
   res.render("places/details", { place });
 });
 
+// Edit Data
+app.put("/places/:id", async (req, res) => {
+  const { id } = req.params;
+  await Place.findByIdAndUpdate(id, req.body, { runValidators: true });
+  res.redirect(`/places/${id}`);
+});
+
+// Delete Data
 app.delete("/places/:id", async (req, res) => {
   const { id } = req.params;
   await Place.findByIdAndDelete(id);
   res.redirect("/places/");
 });
+
 // app.get("/seed/place", async (req, res) => {
 //   const place = new Place({
 //     title: "Empire State Building",
