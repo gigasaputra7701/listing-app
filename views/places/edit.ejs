@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1>Edit Place</h1>
-    <a href="/places/<% place.id %>">Back</a>
+    <a href="/places/<%= place.id %>">Back</a>
     <form action="/places/<%= place._id %>?_method=PUT" method="post">
       <label for="title">Title Place</label>
       <input type="text" name="title" id="title" value="<%= place.title %>" />

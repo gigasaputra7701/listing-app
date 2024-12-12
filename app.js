@@ -30,10 +30,16 @@ app.get("/places", async (req, res) => {
   const places = await Place.find();
   res.render("places/index", { places });
 });
-
 //Route Page Create
 app.get("/places/create", (req, res) => {
   res.render("places/create");
+});
+
+// Read Data
+app.get("/places/:id", async (req, res) => {
+  const { id } = req.params;
+  const place = await Place.findById(id);
+  res.render("places/details", { place });
 });
 
 //Route Page Edit
@@ -48,13 +54,6 @@ app.post("/places", async (req, res) => {
   const place = new Place(req.body);
   await place.save();
   res.redirect(`/places/${place._id}`);
-});
-
-// Read Data
-app.get("/places/:id", async (req, res) => {
-  const { id } = req.params;
-  const place = await Place.findById(id);
-  res.render("places/details", { place });
 });
 
 // Edit Data
