@@ -22,6 +22,17 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
+app.get("/places", async (req, res) => {
+  const places = await Place.find();
+  res.render("places/index", { places });
+});
+
+app.get("/places/:id", async (req, res) => {
+  const { id } = req.params;
+  const place = await Place.findById(id);
+  res.render("places/details", { place });
+});
+
 // app.get("/seed/place", async (req, res) => {
 //   const place = new Place({
 //     title: "Empire State Building",
