@@ -1,4 +1,5 @@
 const express = require("express");
+const ejsMate = require("ejs-mate");
 const mongoose = require("mongoose");
 const path = require("path");
 const app = express();
@@ -6,6 +7,7 @@ const methodOverride = require("method-override");
 // Models
 const Place = require("./models/place");
 
+//config mongodb
 mongoose
   .connect("mongodb://localhost:27017/bestpoints")
   .then((result) => {
@@ -15,6 +17,7 @@ mongoose
     console.log(err);
   });
 
+app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
