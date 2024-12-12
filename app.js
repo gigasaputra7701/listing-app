@@ -18,6 +18,7 @@ mongoose
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+// middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
@@ -35,7 +36,14 @@ app.get("/places/create", (req, res) => {
   res.render("places/create");
 });
 
-// Read Data
+//Restful Create Data
+app.post("/places", async (req, res) => {
+  const place = new Place(req.body.place);
+  await place.save();
+  res.redirect(`/places/${place._id}`);
+});
+
+//Read Data
 app.get("/places/:id", async (req, res) => {
   const { id } = req.params;
   const place = await Place.findById(id);
@@ -49,21 +57,14 @@ app.get("/places/:id/edit", async (req, res) => {
   res.render("places/edit", { place });
 });
 
-//Create Data
-app.post("/places", async (req, res) => {
-  const place = new Place(req.body);
-  await place.save();
-  res.redirect(`/places/${place._id}`);
-});
-
-// Edit Data
+//Restful Edit Data
 app.put("/places/:id", async (req, res) => {
   const { id } = req.params;
-  await Place.findByIdAndUpdate(id, req.body, { runValidators: true });
+  await Place.findByIdAndUpdate(id, { ...req.body.place });
   res.redirect(`/places/${id}`);
 });
 
-// Delete Data
+//Restful Delete Data
 app.delete("/places/:id", async (req, res) => {
   const { id } = req.params;
   await Place.findByIdAndDelete(id);

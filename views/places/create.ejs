@@ -9,14 +9,22 @@
     <h1>Add a New Place</h1>
     <a href="/places">Back</a>
     <form action="/places" method="post">
-      <label for="title">Title Place</label>
-      <input type="text" name="title" id="title" />
-      <label for="description">Description</label>
-      <input type="text" name="description" id="description" />
-      <label for="location">Location</label>
-      <input type="text" name="location" id="location" />
-      <label for="price">Price</label>
-      <input type="text" name="price" id="price" />
+      <div>
+        <label for="title">Title Place</label>
+        <input type="text" name="place[title]" id="title" />
+      </div>
+      <div>
+        <label for="description">Description</label>
+        <input type="text" name="place[description]" id="description" />
+      </div>
+      <div>
+        <label for="location">Location</label>
+        <input type="text" name="place[location]" id="location" />
+      </div>
+      <div>
+        <label for="price">Price</label>
+        <input type="text" name="place[price]" id="price" />
+      </div>
       <button type="submit">Add Place</button>
     </form>
   </body>

@@ -10,23 +10,33 @@
     <a href="/places/<%= place.id %>">Back</a>
     <form action="/places/<%= place._id %>?_method=PUT" method="post">
       <label for="title">Title Place</label>
-      <input type="text" name="title" id="title" value="<%= place.title %>" />
+      <input
+        type="text"
+        name="place[title]"
+        id="title"
+        value="<%= place.title %>"
+      />
       <label for="description">Description</label>
       <input
         type="text"
-        name="description"
+        name="place[description]"
         id="description"
         value="<%= place.description %>"
       />
       <label for="location">Location</label>
       <input
         type="text"
-        name="location"
+        name="place[location]"
         id="location"
         value="<%= place.location %>"
       />
       <label for="price">Price</label>
-      <input type="text" name="price" id="price" value="<%= place.price %>" />
+      <input
+        type="text"
+        name="place[price]"
+        id="price"
+        value="<%= place.price %>"
+      />
       <button type="submit">Edit Place</button>
     </form>
   </body>
