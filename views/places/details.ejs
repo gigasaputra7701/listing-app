@@ -3,8 +3,11 @@
 <a href="/places">All Places</a>
 <a href="/places/<%= place.id %>/edit/">Edit Place</a>
 
-<ul>
-  <li><%= place.title %></li>
+<ul class="my-3">
+  <li><h2><%= place.title %></h2></li>
+  <li>
+    <img class="img-place" src="<%= place.image %>" alt="<%= place.title %>" />
+  </li>
   <li><%= place.description %></li>
   <li><%= place.location %></li>
   <li><%= place.price %></li>

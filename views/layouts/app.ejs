@@ -10,12 +10,63 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <style>
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      li {
+        margin: 0;
+        padding: 0;
+      }
+      .img-place {
+        width: 36rem;
+      }
+      .card-img {
+        height: 600px;
+        width: 100%;
+        border-radius: 0%;
+        overflow: hidden;
+      }
+      .card-img:hover img {
+        transform: scale(1.1);
+        transition: all 300ms ease-in-out;
+      }
+      .img-places {
+        height: 300px;
+        object-fit: cover;
+        background-position: center;
+        width: 100%;
+        transition: all 300ms ease-in-out;
+      }
+      .card-custom {
+        height: 28rem;
+      }
+      .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+      }
+      figure {
+        margin-bottom: 0;
+      }
+      .card-text {
+        margin-bottom: auto;
+      }
+      .btn-card {
+        margin-top: auto;
+        width: 120px;
+      }
+    </style>
   </head>
-  <body>
+  <body class="d-flex flex-column vh-100">
     <%- include('partials/navbar') %>
     <main class="container mt-5">
       <%- body %>
     </main>
+    <%- include('partials/footer') %>
   </body>
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
