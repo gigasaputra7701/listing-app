@@ -4,8 +4,9 @@ const mongoose = require("mongoose");
 const wrapAsync = require("./utils/wrapAsync");
 const ErrorHandler = require("./utils/ErrorHandler");
 const path = require("path");
-const app = express();
 const methodOverride = require("method-override");
+const formatRupiah = require("./utils/formatRupiah");
+const app = express();
 
 //Models
 const Place = require("./models/place");
@@ -30,7 +31,6 @@ app.set("views", path.join(__dirname, "views"));
 // middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-
 const validatePlace = (req, res, next) => {
   const { error } = placeSchema.validate(req.body);
 
@@ -75,7 +75,7 @@ app.post(
 app.get("/places/:id", async (req, res) => {
   const { id } = req.params;
   const place = await Place.findById(id);
-  res.render("places/details", { place });
+  res.render("places/details", { place, formatRupiah });
 });
 
 //Route Page Edit

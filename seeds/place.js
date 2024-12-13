@@ -43,7 +43,7 @@ async function fetchUnsplashImage(query) {
 const places = [
   {
     title: "Taman Mini Indonesia Indah",
-    price: "Rp 20.000",
+    price: 20000,
     description:
       "Taman hiburan keluarga dengan berbagai replika bangunan dari seluruh Indonesia",
     location: "East Jakarta, DKI Jakarta",
@@ -51,7 +51,7 @@ const places = [
   },
   {
     title: "Pantai Kuta",
-    price: "Gratis",
+    price: 0,
     description:
       "Pantai yang terkenal di Bali dengan pemandangan sunset yang indah",
     location: "Kuta, Badung Regency, Bali",
@@ -59,7 +59,7 @@ const places = [
   },
   {
     title: "Borobudur",
-    price: "Rp 25.000",
+    price: 25000,
     description:
       "Candi Buddha terbesar di dunia yang terletak di Magelang, Jawa Tengah",
     location: "Magelang, Central Java",
@@ -67,7 +67,7 @@ const places = [
   },
   {
     title: "Kawah Putih",
-    price: "Rp 50.000",
+    price: 50000,
     description:
       "Kawah vulkanik dengan danau berwarna putih di Bandung, Jawa Barat",
     location: "Ciwidey, West Java",
@@ -75,7 +75,7 @@ const places = [
   },
   {
     title: "Malioboro",
-    price: "Gratis",
+    price: 0,
     description:
       "Jalan utama di Yogyakarta dengan berbagai toko dan kuliner khas",
     location: " Yogyakarta City, Special Region of Yogyakarta",
@@ -83,7 +83,7 @@ const places = [
   },
   {
     title: "Pantai Tanjung Aan",
-    price: "Rp 10.000",
+    price: 10000,
     description:
       "Pantai dengan pasir berwarna putih dan air laut yang jernih di Lombok, Nusa Tenggara Barat",
     location: "Lombok, West Nusa Tenggara",
@@ -91,14 +91,14 @@ const places = [
   },
   {
     title: "Bukit Bintang",
-    price: "Gratis",
+    price: 0,
     description: "Kawasan perbelanjaan dan hiburan di Kuala Lumpur, Malaysia",
     location: "Kuala Lumpur, Federal Territory of Kuala Lumpur, Malaysia",
     query: "Bukit Bintang",
   },
   {
     title: "Candi Prambanan",
-    price: "Rp 25.000",
+    price: 25000,
     description:
       "Candi Hindu terbesar di Indonesia yang terletak di Yogyakarta",
     location: "Sleman, Special Region of Yogyakarta",
@@ -106,7 +106,7 @@ const places = [
   },
   {
     title: "Danau Toba",
-    price: "Gratis",
+    price: 0,
     description:
       "Danau vulkanik terbesar di Indonesia yang terletak di Sumatera Utara",
     location: "Danau Toba, North Sumatra",
@@ -114,7 +114,7 @@ const places = [
   },
   {
     title: "Kawah Ijen",
-    price: "Rp 100.000",
+    price: 100000,
     description:
       "Kawah vulkanik dengan fenomena blue fire di Banyuwangi, Jawa Timur",
     location: "Banyuwangi, East Java",
@@ -122,16 +122,15 @@ const places = [
   },
   {
     title: "Pantai Sanur",
-    price: "Gratis",
+    price: 0,
     description:
       "Pantai di Bali yang cocok untuk berenang dan melihat matahari terbit",
     location: "Denpasar, Bali",
     query: "Pantai Sanur",
   },
-
   {
     title: "Candi Borobudur",
-    price: "Rp 25.000",
+    price: 25000,
     description:
       "Candi Buddha terbesar di dunia yang terletak di Magelang, Jawa Tengah",
     location: "Magelang, Central Java",
@@ -139,7 +138,7 @@ const places = [
   },
   {
     title: "Pulau Komodo",
-    price: "Rp 5.000.000",
+    price: 5000000,
     description:
       "Pulau di Indonesia yang terkenal dengan komodo, hewan terbesar di dunia",
     location: "Pulau Komodo, East Nusa Tenggara",
@@ -147,7 +146,7 @@ const places = [
   },
   {
     title: "Taman Nasional Gunung Rinjani",
-    price: "Rp 150.000",
+    price: 150000,
     description:
       "Taman nasional yang terletak di Lombok dan memiliki gunung tertinggi kedua di Indonesia",
     location: "Lombok, West Nusa Tenggara",
@@ -155,7 +154,7 @@ const places = [
   },
   {
     title: "Bukit Tinggi",
-    price: "Gratis",
+    price: 0,
     description:
       "Kota kecil yang terletak di Sumatera Barat dengan arsitektur khas Eropa",
     location: "Bukit Tinggi, West Sumatra",
@@ -163,7 +162,7 @@ const places = [
   },
   {
     title: "Pulau Weh",
-    price: "Rp 50.000",
+    price: 50000,
     description:
       "Pulau yang terletak di ujung barat Indonesia dengan keindahan bawah laut yang luar biasa",
     location: "Pulau Weh, Sabang, Aceh",
@@ -171,7 +170,7 @@ const places = [
   },
   {
     title: "Taman Safari Indonesia",
-    price: "Rp 180.000",
+    price: 180000,
     description:
       "Taman hiburan keluarga dengan berbagai satwa liar di Cisarua, Bogor",
     location: "Taman Safari Indonesia, Cisarua, West Java",
@@ -179,7 +178,7 @@ const places = [
   },
   {
     title: "Gunung Merbabu",
-    price: "Rp 50.000",
+    price: 50000,
     description:
       "Gunung yang terletak di Jawa Tengah dengan pemandangan matahari terbit yang indah",
     location: "Gunung Merbabu, Central Java",
@@ -187,14 +186,14 @@ const places = [
   },
   {
     title: "Pulau Lombok",
-    price: "Gratis",
+    price: 0,
     description: "Pulau di Indonesia yang terkenal dengan keindahan pantainya",
     location: "Pulau Lombok, West Nusa Tenggara",
     query: "Pulau Lombok",
   },
   {
     title: "Tanjung Lesung",
-    price: "Rp 100.000",
+    price: 100000,
     description:
       "Kawasan wisata pantai di Banten yang cocok untuk bersantai dan berenang",
     location: "Tanjung Lesung, Pandeglang, Banten",

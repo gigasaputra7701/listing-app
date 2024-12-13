@@ -85,6 +85,10 @@
   <ul class="my-3">
     <li><span class="fw-bold">Description: </span><%= place.description %></li>
     <li><span class="fw-bold">Location: </span><%= place.location %></li>
-    <li><span class="fw-bold">Price: </span> <%= place.price %></li>
+    <li>
+      <span class="fw-bold">Price: </span>
+      <% if(place.price === 0) { %> <%= 'Gratis' %> <% } else { %> <%=
+      formatRupiah(place.price) %> <% } %>
+    </li>
   </ul>
 </div>
