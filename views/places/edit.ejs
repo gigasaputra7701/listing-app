@@ -1,34 +1,110 @@
 <% layout('layouts/app') %>
-<h1>Edit Place</h1>
-<a href="/places/<%= place.id %>">Back</a>
-<form action="/places/<%= place._id %>?_method=PUT" method="post">
-  <label for="title">Title Place</label>
-  <input
-    type="text"
-    name="place[title]"
-    id="title"
-    value="<%= place.title %>"
-  />
-  <label for="description">Description</label>
-  <input
-    type="text"
-    name="place[description]"
-    id="description"
-    value="<%= place.description %>"
-  />
-  <label for="location">Location</label>
-  <input
-    type="text"
-    name="place[location]"
-    id="location"
-    value="<%= place.location %>"
-  />
-  <label for="price">Price</label>
-  <input
-    type="text"
-    name="place[price]"
-    id="price"
-    value="<%= place.price %>"
-  />
-  <button type="submit">Edit Place</button>
-</form>
+<div class="container mt-5 mb-5">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/places/<%= place._id %>" class="active">< Back</a>
+      </li>
+    </ol>
+  </nav>
+  <h1 class="text-center">
+    Edit a <span class="text-success fw-bold">Place</span>
+  </h1>
+  <div class="col-6 offset-3 mt-3">
+    <form
+      action="/places/<%= place._id %>?_method=PUT"
+      method="post"
+      class="bg-light p-5 rounded validated-form"
+      novalidate
+    >
+      <div class="mb-3">
+        <label for="title" class="form-label">Title Place</label>
+        <input
+          type="text"
+          name="place[title]"
+          id="title"
+          value="<%= place.title %>"
+          class="form-control"
+          required
+        />
+
+        <div class="valid-feedback">
+          Loooks good!
+        </div>
+        <div class="invalid-feedback">
+          Please fill out this field.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          class="form-control"
+          id="description"
+          name="place[description]"
+          style="height: 100px;"
+          required
+        >
+<%= place.description %></textarea
+        >
+        <div class="valid-feedback">
+          Loooks good!
+        </div>
+        <div class="invalid-feedback">
+          Please fill out this field.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input
+          type="text"
+          name="place[location]"
+          id="location"
+          value="<%= place.location %>"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">
+          Loooks good!
+        </div>
+        <div class="invalid-feedback">
+          Please fill out this field.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">Price</label>
+        <input
+          type="text"
+          name="place[price]"
+          id="price"
+          value="<%= place.price %>"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">
+          Loooks good!
+        </div>
+        <div class="invalid-feedback">
+          Please fill out this field.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Image Url</label>
+        <input
+          type="text"
+          name="place[image]"
+          id="image"
+          value="<%= place.image %>"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">
+          Loooks good!
+        </div>
+        <div class="invalid-feedback">
+          Please fill out this field.
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success">Edit Place</button>
+    </form>
+  </div>
+</div>

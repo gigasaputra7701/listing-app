@@ -1,17 +1,90 @@
 <% layout('layouts/app') %>
-<h1>Details Place</h1>
-<a href="/places">All Places</a>
-<a href="/places/<%= place.id %>/edit/">Edit Place</a>
 
-<ul class="my-3">
-  <li><h2><%= place.title %></h2></li>
-  <li>
-    <img class="img-place" src="<%= place.image %>" alt="<%= place.title %>" />
-  </li>
-  <li><%= place.description %></li>
-  <li><%= place.location %></li>
-  <li><%= place.price %></li>
-</ul>
-<form action="/places/<%= place._id %>?_method=DELETE" method="post">
-  <button type="submit">Delete</button>
-</form>
+<div class="card bg-dark text-white card-thumbnail">
+  <div
+    class="img-fluid img-details"
+    style="background-image: url(<%=place.image%>);"
+  ></div>
+  <div class="card-img-overlay d-flex flex-column">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="/places" class="active nav-back">< Back</a>
+        </li>
+      </ol>
+    </nav>
+    <h2 class="card-title text-center fw-bold" style="margin-top: auto;">
+      <%= place.title %>
+    </h2>
+    <p class="card-text" style="margin-top: auto;">
+      <%= place.location %>
+    </p>
+  </div>
+</div>
+
+<div class="container mt-5 mb-5">
+  <h1 class="mt-5">Details Place</h1>
+  <div class="d-flex gap-2">
+    <a href="/places/<%= place._id %>/edit/" class="btn btn-primary"
+      >Edit Place</a
+    >
+
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-danger"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      Delete Place
+    </button>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Delete Data Permanent
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            Apakah anda yakin ingin menghapus data <%= place.title %>?
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <form
+              action="/places/<%= place._id %>?_method=DELETE"
+              method="post"
+            >
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ul class="my-3">
+    <li><span class="fw-bold">Description: </span><%= place.description %></li>
+    <li><span class="fw-bold">Location: </span><%= place.location %></li>
+    <li><span class="fw-bold">Price: </span> <%= place.price %></li>
+  </ul>
+</div>

@@ -34,6 +34,7 @@ app.get("/places", async (req, res) => {
   const places = await Place.find();
   res.render("places/index", { places });
 });
+
 //Route Page Create
 app.get("/places/create", (req, res) => {
   res.render("places/create");
@@ -73,17 +74,6 @@ app.delete("/places/:id", async (req, res) => {
   await Place.findByIdAndDelete(id);
   res.redirect("/places/");
 });
-
-// app.get("/seed/place", async (req, res) => {
-//   const place = new Place({
-//     title: "Empire State Building",
-//     price: "$999999",
-//     description: "A Great building",
-//     location: "New York, NY",
-//   });
-//   await place.save();
-//   res.send(place);
-// });
 
 app.listen(3000, () => {
   console.log(`server is running on http://127.0.0.1:3000`);

@@ -1,22 +1,104 @@
 <% layout('layouts/app') %>
-<h1>Add a New Place</h1>
-<a href="/places">Back</a>
-<form action="/places" method="post">
-  <div>
-    <label for="title">Title Place</label>
-    <input type="text" name="place[title]" id="title" />
+<div class="container mt-5 mb-5">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/places" class="active">< Back</a>
+      </li>
+    </ol>
+  </nav>
+  <h1 class="text-center">
+    Add a <span class="text-success fw-bold">New Place</span>
+  </h1>
+  <div class="col-6 offset-3 mt-3">
+    <form
+      action="/places"
+      method="post"
+      class="validated-form bg-light p-5 rounded"
+      novalidate
+    >
+      <div class="mb-3">
+        <label for="title" class="form-label">Title Place</label>
+        <input
+          type="text"
+          name="place[title]"
+          id="title"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">
+          Loooks good!
+        </div>
+        <div class="invalid-feedback">
+          Please fill out this field.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          class="form-control"
+          id="description"
+          name="place[description]"
+          style="height: 100px;"
+          required
+        ></textarea>
+        <div class="valid-feedback">
+          Loooks good!
+        </div>
+        <div class="invalid-feedback">
+          Please fill out this field.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input
+          type="text"
+          name="place[location]"
+          id="location"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">
+          Loooks good!
+        </div>
+        <div class="invalid-feedback">
+          Please fill out this field.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">Price</label>
+        <input
+          type="text"
+          name="place[price]"
+          id="price"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">
+          Loooks good!
+        </div>
+        <div class="invalid-feedback">
+          Please fill out this field.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Image Url</label>
+        <input
+          type="text"
+          name="place[image]"
+          id="image"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">
+          Loooks good!
+        </div>
+        <div class="invalid-feedback">
+          Please fill out this field.
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success">Add Place</button>
+    </form>
   </div>
-  <div>
-    <label for="description">Description</label>
-    <input type="text" name="place[description]" id="description" />
-  </div>
-  <div>
-    <label for="location">Location</label>
-    <input type="text" name="place[location]" id="location" />
-  </div>
-  <div>
-    <label for="price">Price</label>
-    <input type="text" name="place[price]" id="price" />
-  </div>
-  <button type="submit">Add Place</button>
-</form>
+</div>
+
