@@ -215,6 +215,7 @@ async function seedPlaces() {
         description: place.description,
         location: place.location,
         image: imageUrl,
+        reviews: [],
       };
 
       // Simpan data ke MongoDB

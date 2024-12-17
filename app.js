@@ -10,6 +10,7 @@ const app = express();
 
 //Models
 const Place = require("./models/place");
+const Review = require("./models/review");
 
 //Schemas
 const { placeSchema } = require("./schemas/place");
@@ -103,6 +104,22 @@ app.delete(
     const { id } = req.params;
     await Place.findByIdAndDelete(id);
     res.redirect("/places/");
+  })
+);
+
+//Restful Add Review
+app.post(
+  "/places/:id/reviews",
+  wrapAsync(async (req, res) => {
+    const { id } = req.params;
+
+    const review = new Review(req.body.review);
+    const place = await Place.findById(id);
+    place.reviews.push(review);
+    await review.save();
+    await place.save();
+
+    res.redirect(`/places/${id}`);
   })
 );
 

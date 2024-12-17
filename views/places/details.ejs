@@ -17,78 +17,125 @@
       <%= place.title %>
     </h2>
     <p class="card-text" style="margin-top: auto;">
-      <%= place.location %>
+      📍<%= place.location %>
     </p>
   </div>
 </div>
 
 <div class="container mt-5 mb-5">
-  <h1 class="mt-5">Details Place</h1>
-  <div class="d-flex gap-2">
-    <a href="/places/<%= place._id %>/edit/" class="btn btn-primary"
-      >Edit Place</a
-    >
-
-    <!-- Button trigger modal -->
-    <button
-      type="button"
-      class="btn btn-danger"
-      data-bs-toggle="modal"
-      data-bs-target="#exampleModal"
-    >
-      Delete Place
-    </button>
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              Delete Data Permanent
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            Apakah anda yakin ingin menghapus data <%= place.title %>?
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <form
-              action="/places/<%= place._id %>?_method=DELETE"
-              method="post"
-            >
-              <button type="submit" class="btn btn-danger">Delete</button>
-            </form>
+  <div class="row pt-5 pb-3">
+    <div class="col-6 me-5">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1>Details Place</h1>
+        <div class="d-flex gap-2">
+          <a href="/places/<%= place._id %>/edit/" class="btn btn-primary"
+            >Edit</a
+          >
+          <!-- Button trigger modal -->
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            Delete
+          </button>
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    Delete Data Permanent
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  Apakah anda yakin ingin menghapus data <%= place.title %>?
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <form
+                    action="/places/<%= place._id %>?_method=DELETE"
+                    method="post"
+                  >
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      <ul class="my-3 bg-light p-3 rounded">
+        <li class="mb-3">
+          <span class="fw-bold">Description: </span><%= place.description %>
+        </li>
+        <li class="mb-3">
+          <span class="fw-bold">Location: </span><%= place.location %>
+        </li>
+        <li class="mb-3">
+          <span class="fw-bold">Price: </span>
+          <% if(place.price === 0) { %> <%= 'Gratis' %> <% } else { %> <%=
+          formatRupiah(place.price) %> <% } %>
+        </li>
+      </ul>
+    </div>
+    <div class="col-4">
+      <h6 class="h5 mb-4 font-monospace text-uppercase text-underline">
+        <u>Leave a Review</u>
+      </h6>
+      <form
+        action="/places/<%= place._id %>/reviews"
+        method="POST"
+        class="validated-form bg-light p-3 rounded"
+        novalidate
+      >
+        <div class="mb-3">
+          <label for="rating">Rating (1-5)⭐</label>
+          <input
+            class="form-range"
+            type="range"
+            name="review[rating]"
+            id="rating"
+            min="1"
+            max="5"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="review" class="mb-2">Review</label>
+          <textarea
+            class="form-control"
+            name="review[body]"
+            id="body"
+            cols="20"
+            rows="5"
+            required
+          ></textarea>
+          <div class="invalid-feedback">
+            Please fill out this field.
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
     </div>
   </div>
-
-  <ul class="my-3">
-    <li><span class="fw-bold">Description: </span><%= place.description %></li>
-    <li><span class="fw-bold">Location: </span><%= place.location %></li>
-    <li>
-      <span class="fw-bold">Price: </span>
-      <% if(place.price === 0) { %> <%= 'Gratis' %> <% } else { %> <%=
-      formatRupiah(place.price) %> <% } %>
-    </li>
-  </ul>
 </div>

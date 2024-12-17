@@ -60,6 +60,7 @@
         width: 120px;
       }
       .img-details {
+        position: relative;
         width: 100%;
         height: 400px;
         object-fit: cover;
@@ -67,6 +68,23 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
+      }
+      .img-details:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        background: rgb(23, 23, 23);
+        background: linear-gradient(
+          0deg,
+          rgba(23, 23, 23, 1) 5%,
+          rgba(255, 255, 255, 0) 100%
+        );
+      }
+      .img-overlay {
       }
       .nav-back {
         color: white;
