@@ -12,4 +12,18 @@
     aria-label="Close"
   ></button>
 </div>
+<% } %> <% if(error_msg && error_msg.length){ %>
+<div
+  class="alert alert-danger alert-dismissible fade show alert-custom"
+  role="alert"
+  id="successAlert"
+>
+  <strong>404 Not Found</strong> (<%= error_msg %>)
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
 <% } %>
