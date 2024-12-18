@@ -45,6 +45,7 @@ const postPlaces = [
   wrapAsync(async (req, res) => {
     const place = new Place(req.body.place);
     await place.save();
+    req.flash("success_msg", "Place added successfully");
     res.redirect(`/places/${place._id}`);
   }),
 ];

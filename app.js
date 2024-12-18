@@ -1,4 +1,6 @@
 const express = require("express");
+const session = require("express-session");
+const flash = require("connect-flash");
 const ejsMate = require("ejs-mate");
 const mongoose = require("mongoose");
 
@@ -27,7 +29,25 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  session({
+    secret: "secret_key",
+    resave: false,
+    saveUnitialized: false,
+    cookie: {
+      httpOnly: true,
+      expires: Date.now() + 1000 * 60 * 60 * 24 * 7, //7 days
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    },
+  })
+);
 
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  next();
+});
 //Routes
 app.use("/places", authRouter);
 
