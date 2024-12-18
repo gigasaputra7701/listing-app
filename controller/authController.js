@@ -97,16 +97,16 @@ const postReview = [
 ];
 
 const deleteReview = wrapAsync(async (req, res) => {
-  console.log("delete review");
+  const { id, review_id } = req.params;
+  await Place.findByIdAndUpdate(id, { $pull: { reviews: review_id  } });
+  await Review.findByIdAndDelete(review_id);
+  res.redirect(`/places/${id}`);
 });
 
 const pageNotFound = (req, res, next) => {
   next(new ErrorHandler("Page not found", 404));
 };
 
-
-
-// Export the functions
 module.exports = {
   home,
   getPlaces,

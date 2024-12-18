@@ -24,7 +24,7 @@
 
 <div class="container mt-5 mb-5">
   <div class="row pt-5 pb-3">
-    <div class="col-6">
+    <div class="col-sm-6">
       <div class="d-flex justify-content-between align-items-center">
         <h1>Details Place</h1>
         <div class="d-flex gap-2">
@@ -100,14 +100,14 @@
     </div>
   </div>
   <div class="row mt-5 border-top pt-5">
-    <div class="col-4">
+    <div class="col-sm-4">
       <h6 class="h5 mb-4 font-monospace text-uppercase text-underline">
         <u>Leave a Review</u>
       </h6>
       <form
         action="/places/<%= place._id %>/reviews"
         method="POST"
-        class="validated-form bg-light p-3 rounded"
+        class="validated-form bg-light p-3 rounded mb-3"
         novalidate
       >
         <div class="mb-3">
@@ -139,7 +139,7 @@
         <button type="submit" class="btn btn-success">Submit</button>
       </form>
     </div>
-    <div class="col-8">
+    <div class="col-sm-8">
       <div class="row">
         <div class="d-flex justify-content-between">
           <h6 class="h5 mb-4 font-monospace text-uppercase text-underline">
@@ -151,9 +151,9 @@
           >
         </div>
         <% if(place.reviews.length > 0) { %>
-        <div class="row p-0">
+        <div class="row">
           <% for(const review of place.reviews) { %>
-          <div class="col-4 mb-4">
+          <div class="col-md-4 col-sm-6 mb-4">
             <ul class="list-group list-group-flush">
               <li class="list-group-item border-bottom border-top">
                 <div class="d-flex flex-column">
@@ -164,6 +164,12 @@
                   <small class="font-monospace"
                     >Review: <%= review.body %></small
                   >
+                  <form
+                    action="/places/<%= place._id %>/reviews/<%= review.id %>?_method=DELETE"
+                    method="POST"
+                  >
+                    <button class="btn btn-danger btn-sm mt-2">Delete</button>
+                  </form>
                 </div>
               </li>
             </ul>
@@ -171,7 +177,7 @@
           <% } %>
         </div>
         <% } else { %>
-        <div class="col-4">
+        <div class="col-md-4 col-sm-6">
           <ul class="list-group list-group-flush">
             <li class="list-group-item border-bottom border-top">
               <div class="d-flex flex-column">

@@ -28,8 +28,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 app.use(authRouter);
-// Error Handler
 
+// Error Handler
 const error = (err, req, res, next) => {
   const { statusCode = 500 } = err;
   if (!err.message) err.message = "Oh No, Something Went Wrong!";

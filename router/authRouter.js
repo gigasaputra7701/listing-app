@@ -27,7 +27,7 @@ router.delete("/places/:id", deletePlace);
 
 // Restful Review
 router.post("/places/:id/reviews", postReview);
-router.delete("/places/:id/reviews/", deleteReview);
+router.delete("/places/:id/reviews/:review_id", deleteReview);
 
 // 404 Handler
 router.all("*", pageNotFound);
