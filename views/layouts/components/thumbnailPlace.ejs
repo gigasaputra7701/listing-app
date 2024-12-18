@@ -1,0 +1,21 @@
+<div class="card bg-dark text-white card-thumbnail">
+  <div
+    class="img-fluid img-details"
+    style="background-image: url(<%=place.image%>);"
+  ></div>
+  <div class="card-img-overlay d-flex flex-column">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="/places" class="active nav-back">< Back</a>
+        </li>
+      </ol>
+    </nav>
+    <h2 class="card-title text-center fw-bold" style="margin-top: auto;">
+      "<%= place.title %>"
+    </h2>
+    <p class="card-text" style="margin-top: auto;">
+      📍<%= place.location %>
+    </p>
+  </div>
+</div>

@@ -1,27 +1,5 @@
-<% layout('layouts/app') %>
-
-<div class="card bg-dark text-white card-thumbnail">
-  <div
-    class="img-fluid img-details"
-    style="background-image: url(<%=place.image%>);"
-  ></div>
-  <div class="card-img-overlay d-flex flex-column">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="/places" class="active nav-back">< Back</a>
-        </li>
-      </ol>
-    </nav>
-    <h2 class="card-title text-center fw-bold" style="margin-top: auto;">
-      "<%= place.title %>"
-    </h2>
-    <p class="card-text" style="margin-top: auto;">
-      📍<%= place.location %>
-    </p>
-  </div>
-</div>
-
+<% layout('layouts/app') %> <%- include('../layouts/components/thumbnailPlace')
+%>
 <div class="container mt-5 mb-5">
   <div class="row pt-5 pb-3">
     <div class="col-sm-6">
@@ -104,40 +82,7 @@
       <h6 class="h5 mb-4 font-monospace text-uppercase text-underline">
         <u>Leave a Review</u>
       </h6>
-      <form
-        action="/places/<%= place._id %>/reviews"
-        method="POST"
-        class="validated-form bg-light p-3 rounded mb-3"
-        novalidate
-      >
-        <div class="mb-3">
-          <label for="rating">Rating (1-5)⭐</label>
-          <input
-            class="form-range"
-            type="range"
-            name="review[rating]"
-            id="rating"
-            min="1"
-            max="5"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="review" class="mb-2">Review</label>
-          <textarea
-            class="form-control"
-            name="review[body]"
-            id="body"
-            cols="20"
-            rows="5"
-            required
-          ></textarea>
-          <div class="invalid-feedback">
-            Please fill out this field.
-          </div>
-        </div>
-        <button type="submit" class="btn btn-success">Submit</button>
-      </form>
+      <%- include('../layouts/components/formReview') %>
     </div>
     <div class="col-sm-8">
       <div class="row">
@@ -150,43 +95,7 @@
             %>⭐</strong
           >
         </div>
-        <% if(place.reviews.length > 0) { %>
-        <div class="row">
-          <% for(const review of place.reviews) { %>
-          <div class="col-md-4 col-sm-6 mb-4">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item border-bottom border-top">
-                <div class="d-flex flex-column">
-                  <small class=""
-                    >Rating : <% for(let i = 0; i < review.rating; i++) { %> ⭐
-                    <% } %></small
-                  >
-                  <small class="font-monospace"
-                    >Review: <%= review.body %></small
-                  >
-                  <form
-                    action="/places/<%= place._id %>/reviews/<%= review.id %>?_method=DELETE"
-                    method="POST"
-                  >
-                    <button class="btn btn-danger btn-sm mt-2">Delete</button>
-                  </form>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <% } %>
-        </div>
-        <% } else { %>
-        <div class="col-md-4 col-sm-6">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item border-bottom border-top">
-              <div class="d-flex flex-column">
-                <small class="font-monospace">No Review...</small>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <% } %>
+        <%- include('../layouts/components/reviews') %>
       </div>
     </div>
   </div>

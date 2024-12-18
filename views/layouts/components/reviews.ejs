@@ -1,0 +1,35 @@
+<% if(place.reviews.length > 0) { %>
+<div class="row">
+  <% for(const review of place.reviews) { %>
+  <div class="col-md-4 col-sm-6 mb-4">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item border-bottom border-top">
+        <div class="d-flex flex-column">
+          <small class=""
+            >Rating : <% for(let i = 0; i < review.rating; i++) { %> ⭐ <% }
+            %></small
+          >
+          <small class="font-monospace">Review: <%= review.body %></small>
+          <form
+            action="/places/<%= place._id %>/reviews/<%= review.id %>?_method=DELETE"
+            method="POST"
+          >
+            <button class="btn btn-danger btn-sm mt-2">Delete</button>
+          </form>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <% } %>
+</div>
+<% } else { %>
+<div class="col-md-4 col-sm-6">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item border-bottom border-top">
+      <div class="d-flex flex-column">
+        <small class="font-monospace">No Review...</small>
+      </div>
+    </li>
+  </ul>
+</div>
+<% } %>

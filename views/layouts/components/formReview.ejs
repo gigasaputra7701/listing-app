@@ -1,0 +1,34 @@
+<form
+  action="/places/<%= place._id %>/reviews"
+  method="POST"
+  class="validated-form bg-light p-3 rounded mb-3"
+  novalidate
+>
+  <div class="mb-3">
+    <label for="rating">Rating (1-5)⭐</label>
+    <input
+      class="form-range"
+      type="range"
+      name="review[rating]"
+      id="rating"
+      min="1"
+      max="5"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="review" class="mb-2">Review</label>
+    <textarea
+      class="form-control"
+      name="review[body]"
+      id="body"
+      cols="20"
+      rows="5"
+      required
+    ></textarea>
+    <div class="invalid-feedback">
+      Please fill out this field.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-success">Submit</button>
+</form>
