@@ -10,96 +10,12 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <style>
-      ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      li {
-        margin: 0;
-        padding: 0;
-      }
-      .img-place {
-        width: 36rem;
-      }
-      .card-img {
-        height: 600px;
-        width: 100%;
-        border-radius: 0%;
-        overflow: hidden;
-      }
-      .card-img:hover img {
-        transform: scale(1.1);
-        transition: all 300ms ease-in-out;
-      }
-      .img-places {
-        height: 300px;
-        object-fit: cover;
-        background-position: center;
-        width: 100%;
-        transition: all 300ms ease-in-out;
-      }
-      .card-custom {
-        height: 28rem;
-      }
-      .card-body {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100%;
-      }
-      figure {
-        margin-bottom: 0;
-      }
-      .card-text {
-        margin-bottom: auto;
-      }
-      .btn-card {
-        margin-top: auto;
-        width: 120px;
-      }
-      .img-details {
-        position: relative;
-        width: 100%;
-        height: 450px;
-        object-fit: cover;
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-      }
-      .img-details:after {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        display: inline-block;
-        background: rgb(23, 23, 23);
-        background: linear-gradient(
-          0deg,
-          rgba(23, 23, 23, 1) 5%,
-          rgba(255, 255, 255, 0) 100%
-        );
-      }
-      .nav-back {
-        color: white;
-        text-decoration: none;
-      }
-      .card-thumbnail {
-        border-radius: 0;
-      }
-      a {
-        text-decoration: none;
-      }
-    </style>
+    <link rel="stylesheet" href="/styles/base.css" />
   </head>
   <body class="d-flex flex-column vh-100">
     <%- include('partials/navbar') %>
     <main>
-      <%= success_msg %> <%- body %>
+      <%- include('partials/alert') %> <%- body %>
     </main>
     <%- include('partials/footer') %>
   </body>
@@ -119,4 +35,6 @@
     crossorigin="anonymous"
   ></script>
   <script src="/js/formValidate.js"></script>
+  <script src="/js/noScroll.js"></script>
+  <script src="/js/setTimeout.js"></script>
 </html>

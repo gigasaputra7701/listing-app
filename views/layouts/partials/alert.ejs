@@ -1,0 +1,15 @@
+<% if(success_msg && success_msg.length){ %>
+<div
+  class="alert alert-success alert-dismissible fade show alert-custom"
+  role="alert"
+  id="successAlert"
+>
+  <strong><%= success_msg %></strong>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+<% } %>

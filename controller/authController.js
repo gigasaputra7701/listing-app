@@ -71,6 +71,7 @@ const putEdit = [
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     await Place.findByIdAndUpdate(id, { ...req.body.place });
+    req.flash("success_msg", "Place edited successfully");
     res.redirect(`/places/${id}`);
   }),
 ];
@@ -78,6 +79,7 @@ const putEdit = [
 const deletePlace = wrapAsync(async (req, res) => {
   const { id } = req.params;
   await Place.findByIdAndDelete(id);
+  req.flash("success_msg", "Place deleted successfully");
   res.redirect("/places/");
 });
 
@@ -92,6 +94,7 @@ const postReview = [
     await review.save();
     await place.save();
 
+    req.flash("success_msg", "Review added successfully");
     res.redirect(`/places/${id}`);
   }),
 ];
@@ -100,6 +103,7 @@ const deleteReview = wrapAsync(async (req, res) => {
   const { id, review_id } = req.params;
   await Place.findByIdAndUpdate(id, { $pull: { reviews: review_id } });
   await Review.findByIdAndDelete(review_id);
+  req.flash("success_msg", "Review deleted successfully");
   res.redirect(`/places/${id}`);
 });
 
