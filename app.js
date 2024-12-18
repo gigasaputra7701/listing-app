@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
 
-const authRouter = require("./router/authRouter");
+const authRouter = require("./routes/authRouter");
 
 const app = express();
 
@@ -26,8 +26,14 @@ app.set("views", path.join(__dirname, "views"));
 // middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname, "public")));
 
-app.use(authRouter);
+//Routes
+app.use("/places", authRouter);
+
+app.get("/", (req, res) => {
+  res.render("home");
+});
 
 // Error Handler
 const error = (err, req, res, next) => {

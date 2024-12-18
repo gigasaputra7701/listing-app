@@ -1,6 +1,8 @@
+//Models
 const Place = require("../models/place");
 const Review = require("../models/review");
 
+//Utils
 const wrapAsync = require("../utils/wrapAsync");
 const formatRupiah = require("../utils/formatRupiah");
 const calculateAverageRating = require("../utils/totalRating");
@@ -32,10 +34,7 @@ const validateReview = (req, res, next) => {
   }
 };
 
-const home = (req, res) => {
-  res.render("home");
-};
-
+//Restful
 const getPlaces = wrapAsync(async (req, res) => {
   const places = await Place.find();
   res.render("places/index", { places });
@@ -98,7 +97,7 @@ const postReview = [
 
 const deleteReview = wrapAsync(async (req, res) => {
   const { id, review_id } = req.params;
-  await Place.findByIdAndUpdate(id, { $pull: { reviews: review_id  } });
+  await Place.findByIdAndUpdate(id, { $pull: { reviews: review_id } });
   await Review.findByIdAndDelete(review_id);
   res.redirect(`/places/${id}`);
 });
@@ -108,7 +107,6 @@ const pageNotFound = (req, res, next) => {
 };
 
 module.exports = {
-  home,
   getPlaces,
   postPlaces,
   getCreate,
