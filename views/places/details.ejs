@@ -14,7 +14,7 @@
       </ol>
     </nav>
     <h2 class="card-title text-center fw-bold" style="margin-top: auto;">
-      <%= place.title %>
+      "<%= place.title %>"
     </h2>
     <p class="card-text" style="margin-top: auto;">
       📍<%= place.location %>
@@ -24,7 +24,7 @@
 
 <div class="container mt-5 mb-5">
   <div class="row pt-5 pb-3">
-    <div class="col-6 me-5">
+    <div class="col-6">
       <div class="d-flex justify-content-between align-items-center">
         <h1>Details Place</h1>
         <div class="d-flex gap-2">
@@ -98,6 +98,8 @@
         </li>
       </ul>
     </div>
+  </div>
+  <div class="row mt-5 border-top pt-5">
     <div class="col-4">
       <h6 class="h5 mb-4 font-monospace text-uppercase text-underline">
         <u>Leave a Review</u>
@@ -136,6 +138,50 @@
         </div>
         <button type="submit" class="btn btn-success">Submit</button>
       </form>
+    </div>
+    <div class="col-8">
+      <div class="row">
+        <div class="d-flex justify-content-between">
+          <h6 class="h5 mb-4 font-monospace text-uppercase text-underline">
+            <u>All Reviews </u>
+          </h6>
+          <strong
+            >Average Rating: <%= calculateAverageRating(place.reviews)
+            %>⭐</strong
+          >
+        </div>
+        <% if(place.reviews.length > 0) { %>
+        <div class="row p-0">
+          <% for(const review of place.reviews) { %>
+          <div class="col-4 mb-4">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item border-bottom border-top">
+                <div class="d-flex flex-column">
+                  <small class=""
+                    >Rating : <% for(let i = 0; i < review.rating; i++) { %> ⭐
+                    <% } %></small
+                  >
+                  <small class="font-monospace"
+                    >Review: <%= review.body %></small
+                  >
+                </div>
+              </li>
+            </ul>
+          </div>
+          <% } %>
+        </div>
+        <% } else { %>
+        <div class="col-4">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item border-bottom border-top">
+              <div class="d-flex flex-column">
+                <small class="font-monospace">No Review...</small>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <% } %>
+      </div>
     </div>
   </div>
 </div>
