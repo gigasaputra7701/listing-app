@@ -1,6 +1,7 @@
 //Models
 const Place = require("../models/place");
 const Review = require("../models/review");
+const User = require("../models/user");
 
 //Utils
 const wrapAsync = require("../utils/wrapAsync");
@@ -107,6 +108,23 @@ const deleteReview = wrapAsync(async (req, res) => {
   res.redirect(`/places/${id}`);
 });
 
+const getRegister = (req, res) => {
+  res.render("auth/register");
+};
+
+const postRegister = wrapAsync(async (req, res) => {
+  try {
+    const { email, username, password } = req.body;
+    const user = new User({ email, username });
+    await User.register(user, password);
+    req.flash("success_msg", "User added successfully");
+    res.redirect("/places");
+  } catch (error) {
+    req.flash("error_msg", error.message); 
+    res.redirect("/register"); // Redirect back to registration page on error
+  }
+});
+
 const pageNotFound = (req, res, next) => {
   next(new ErrorHandler("Page not found", 404));
 };
@@ -121,5 +139,7 @@ module.exports = {
   deletePlace,
   postReview,
   deleteReview,
+  getRegister,
+  postRegister,
   pageNotFound,
 };

@@ -8,7 +8,10 @@ const path = require("path");
 const methodOverride = require("method-override");
 
 const authRouter = require("./routes/authRouter");
-
+const authUser = require("./routes/authUser");
+const passport = require("passport");
+const localStrategy = require("passport-local");
+const User = require("./models/user");
 const app = express();
 
 //config mongodb
@@ -43,14 +46,21 @@ app.use(
 );
 
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser()); //setter
+passport.deserializeUser(User.deserializeUser()); //getter
+
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash("success_msg");
   res.locals.error_msg = req.flash("error_msg");
   next();
 });
+
 //Routes
 app.use("/places", authRouter);
-
+app.use("/", authUser);
 app.get("/", (req, res) => {
   res.render("home");
 });

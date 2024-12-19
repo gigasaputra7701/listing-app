@@ -1,0 +1,82 @@
+<% layout('layouts/app') %>
+<div class="container pt-5 pb-5">
+  <h1 class="text-center mb-3">Sign Up</h1>
+  <div class="col-sm-6 mx-auto">
+    <form
+      action="/register"
+      method="POST"
+      class="validated-form bg-light p-5 rounded"
+      novalidate
+    >
+      <!-- Input Username -->
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input
+          type="text"
+          name="user[username]"
+          id="username"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">
+          Loooks good!
+        </div>
+        <div class="invalid-feedback">
+          Please fill out this field.
+        </div>
+      </div>
+      <!-- Input Email -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          name="user[email]"
+          id="email"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">
+          Loooks good!
+        </div>
+        <div class="invalid-feedback">
+          Please fill out this field.
+        </div>
+      </div>
+      <!-- Input Password -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          name="user[password]"
+          id="password"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">
+          Loooks good!
+        </div>
+        <div class="invalid-feedback">
+          Please fill out this field.
+        </div>
+      </div>
+      <!-- Input Konfirmasi Password -->
+      <div class="mb-3">
+        <label for="password2" class="form-label">Konfirmasi Password</label>
+        <input
+          type="password"
+          name="user[password2]"
+          id="password2"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">
+          Loooks good!
+        </div>
+        <div class="invalid-feedback">
+          Please fill out this field.
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success">Sign Up</button>
+    </form>
+  </div>
+</div>
