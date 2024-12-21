@@ -36,7 +36,7 @@ app.use(
   session({
     secret: "secret_key",
     resave: false,
-    saveUnitialized: false,
+    saveUninitialized: false,
     cookie: {
       httpOnly: true,
       expires: Date.now() + 1000 * 60 * 60 * 24 * 7, //7 days
@@ -60,10 +60,12 @@ app.use((req, res, next) => {
 
 //Routes
 app.use("/places", authRouter);
-app.use("/", authUser);
+
 app.get("/", (req, res) => {
   res.render("home");
 });
+
+app.use("/", authUser);
 
 // Error Handler
 const error = (err, req, res, next) => {

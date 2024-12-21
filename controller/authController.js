@@ -2,7 +2,7 @@
 const Place = require("../models/place");
 const Review = require("../models/review");
 const User = require("../models/user");
-
+const passport = require("passport");
 //Utils
 const wrapAsync = require("../utils/wrapAsync");
 const formatRupiah = require("../utils/formatRupiah");
@@ -113,17 +113,41 @@ const getRegister = (req, res) => {
 };
 
 const postRegister = wrapAsync(async (req, res) => {
-  try {
-    const { email, username, password } = req.body;
-    const user = new User({ email, username });
-    await User.register(user, password);
-    req.flash("success_msg", "User added successfully");
-    res.redirect("/places");
-  } catch (error) {
-    req.flash("error_msg", error.message); 
-    res.redirect("/register"); // Redirect back to registration page on error
+  const { password, password2 } = req.body.user;
+  if (password !== password2) {
+    req.flash("error_msg", "Passwords do not match. Please try again.");
+    return res.redirect("/register"); // Redirect back to the registration page
+  } else {
+    try {
+      const { email, username, password } = req.body.user;
+      const user = new User({ email, username });
+      await User.register(user, password);
+      req.flash("success_msg", "User added successfully");
+      res.redirect(`/login`);
+    } catch (error) {
+      req.flash("error_msg", error.message);
+      res.redirect(`/register`);
+    }
   }
 });
+
+const getLogin = (req, res) => {
+  res.render("auth/login");
+};
+
+const postLogin = [
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: {
+      type: "error_msg",
+      msg: "Invalid username or password",
+    },
+  }),
+  (req, res) => {
+    req.flash("success_msg", "You are logged in");
+    res.redirect("/places");
+  },
+];
 
 const pageNotFound = (req, res, next) => {
   next(new ErrorHandler("Page not found", 404));
@@ -142,4 +166,6 @@ module.exports = {
   getRegister,
   postRegister,
   pageNotFound,
+  getLogin,
+  postLogin,
 };
