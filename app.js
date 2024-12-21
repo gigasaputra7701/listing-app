@@ -13,7 +13,7 @@ const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user");
 const app = express();
-require('dotenv').config();
+require("dotenv").config();
 //config mongodb
 mongoose
   .connect(process.env.DB_URL)
@@ -34,7 +34,7 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
   session({
-    secret: "secret_key",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -71,11 +71,13 @@ app.use("/", authUser);
 // Error Handler
 const error = (err, req, res, next) => {
   const { statusCode = 500 } = err;
+  console.error(err); // Log error untuk debugging
   if (!err.message) err.message = "Oh No, Something Went Wrong!";
   res.status(statusCode).render("error", { err });
 };
 app.use(error);
 
-app.listen(3000, () => {
-  console.log(`server is running on http://127.0.0.1:3000`);
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+  console.log(`server is running on http://127.0.0.1:${PORT}`);
 });
