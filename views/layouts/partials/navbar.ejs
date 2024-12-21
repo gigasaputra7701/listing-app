@@ -34,7 +34,9 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Account
+            <%= currentUser && currentUser.username ? "Hello, " +
+            currentUser.username.charAt(0).toUpperCase() +
+            currentUser.username.slice(1) : "Account" %>
           </a>
           <ul
             class="dropdown-menu dropdown-menu-dark dropdown-menu-lg-end dropdown-menu-lg-start"

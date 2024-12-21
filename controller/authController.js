@@ -8,7 +8,6 @@ const wrapAsync = require("../utils/wrapAsync");
 const formatRupiah = require("../utils/formatRupiah");
 const calculateAverageRating = require("../utils/totalRating");
 const ErrorHandler = require("../utils/ErrorHandler");
-
 //Schemas
 const { placeSchema } = require("../schemas/place");
 const { reviewSchema } = require("../schemas/review");
@@ -113,21 +112,23 @@ const getRegister = (req, res) => {
 };
 
 const postRegister = wrapAsync(async (req, res) => {
-  const { password, password2 } = req.body.user;
-  if (password !== password2) {
-    req.flash("error_msg", "Passwords do not match. Please try again.");
-    return res.redirect("/register"); // Redirect back to the registration page
-  } else {
-    try {
-      const { email, username, password } = req.body.user;
-      const user = new User({ email, username });
-      await User.register(user, password);
-      req.flash("success_msg", "User added successfully");
-      res.redirect(`/login`);
-    } catch (error) {
-      req.flash("error_msg", error.message);
-      res.redirect(`/register`);
+  try {
+    const { email, username, password, password2 } = req.body.user;
+
+    if (password !== password2) {
+      req.flash("error_msg", "Passwords do not match");
+      return res.redirect("/register");
     }
+    const user = new User({ email, username });
+    const registerUser = await User.register(user, password);
+    req.login(registerUser, (err) => {
+      if (err) return next(err);
+      req.flash("success_msg", "You are registered and logged in");
+      res.redirect("/places");
+    });
+  } catch (error) {
+    req.flash("error_msg", error.message);
+    res.redirect(`/register`);
   }
 });
 
