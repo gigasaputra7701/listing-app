@@ -14,6 +14,8 @@ const localStrategy = require("passport-local");
 const User = require("./models/user");
 const app = express();
 require("dotenv").config();
+
+console.log("DB_URL:", process.env.DB_URL);
 //config mongodb
 mongoose
   .connect(process.env.DB_URL)
