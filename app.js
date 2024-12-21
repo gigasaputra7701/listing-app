@@ -13,10 +13,10 @@ const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user");
 const app = express();
-
+require('dotenv').config();
 //config mongodb
 mongoose
-  .connect("mongodb://localhost:27017/bestpoints")
+  .connect(process.env.DB_URL)
   .then((result) => {
     console.log("connected to mongodb");
   })
