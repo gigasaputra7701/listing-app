@@ -149,6 +149,16 @@ const postLogin = [
   },
 ];
 
+const logout = (req, res) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    req.flash("success_msg", "You are logged out");
+    res.redirect("/login");
+  });
+};
+
 const pageNotFound = (req, res, next) => {
   next(new ErrorHandler("Page not found", 404));
 };
@@ -168,4 +178,5 @@ module.exports = {
   pageNotFound,
   getLogin,
   postLogin,
+  logout,
 };
