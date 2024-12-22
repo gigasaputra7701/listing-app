@@ -56,7 +56,16 @@ const getCreate = (req, res) => {
 
 const getDetailsPlace = wrapAsync(async (req, res) => {
   const { id } = req.params;
-  const place = await Place.findById(id).populate("reviews").populate("author");
+
+  const place = await Place.findById(id)
+    .populate({
+      path: "reviews",
+      populate: {
+        path: "author",
+        model: "User",
+      },
+    })
+    .populate("author");
 
   res.render("places/details", { place, formatRupiah, calculateAverageRating });
 });
@@ -89,7 +98,11 @@ const postReview = [
   wrapAsync(async (req, res) => {
     const { id } = req.params;
 
-    const review = new Review(req.body.review);
+    const review = new Review({
+      ...req.body.review,
+      author: req.user._id, // Isi field author dengan ID pengguna login
+    });
+
     const place = await Place.findById(id);
     place.reviews.push(review);
     await review.save();
@@ -102,6 +115,17 @@ const postReview = [
 
 const deleteReview = wrapAsync(async (req, res) => {
   const { id, review_id } = req.params;
+
+  const place = await Place.findById(id);
+  const review = await Review.findById(review_id);
+
+  if (
+    !place.author.equals(req.user._id) &&
+    !review.author.equals(req.user._id)
+  ) {
+    req.flash("error", "You do not have permission to do that!");
+    return res.redirect(`/places/${id}`);
+  }
   await Place.findByIdAndUpdate(id, { $pull: { reviews: review_id } });
   await Review.findByIdAndDelete(review_id);
   req.flash("success_msg", "Review deleted successfully");

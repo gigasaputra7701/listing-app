@@ -5,7 +5,7 @@
     <div class="col-sm-6">
       <div class="d-flex justify-content-between align-items-center">
         <h1>Details Place</h1>
-        <% if(currentUser) { %>
+        <% if(currentUser && place.author.equals(currentUser._id)) { %>
         <div class="d-flex gap-2">
           <a href="/places/<%= place._id %>/edit/" class="btn btn-primary"
             >Edit</a

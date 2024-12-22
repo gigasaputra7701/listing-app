@@ -35,8 +35,7 @@
             aria-expanded="false"
           >
             <%= currentUser && currentUser.username ? "Hello, " +
-            currentUser.username.charAt(0).toUpperCase() +
-            currentUser.username.slice(1) : "Account" %>
+            formatUsername(currentUser.username) : "Account" %>
           </a>
           <ul
             class="dropdown-menu dropdown-menu-dark dropdown-menu-lg-end dropdown-menu-lg-start"

@@ -5,12 +5,15 @@
     <ul class="list-group list-group-flush">
       <li class="list-group-item border-bottom border-top">
         <div class="d-flex flex-column">
-          <small class=""
-            >Rating : <% for(let i = 0; i < review.rating; i++) { %> ⭐ <% }
-            %></small
-          >
+          <small class="">
+            Rating : <% for(let i = 0; i < review.rating; i++) { %> ⭐ <% } %>
+          </small>
           <small class="font-monospace">Review: <%= review.body %></small>
-          <% if(currentUser) { %>
+          <small class="font-monospace">
+            By: <%= review.author.username %>
+          </small>
+          <% if ( currentUser && (review.author._id.equals(currentUser._id) ||
+          place.author._id.equals(currentUser._id)) ) { %>
           <form
             action="/places/<%= place._id %>/reviews/<%= review.id %>?_method=DELETE"
             method="POST"
