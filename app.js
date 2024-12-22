@@ -12,10 +12,10 @@ const authUser = require("./routes/authUser");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user");
+const formatUsername = require("./middleware/formatUsername");
 const app = express();
 require("dotenv").config();
 
-console.log("DB_URL:", process.env.DB_URL);
 //config mongodb
 mongoose
   .connect(process.env.DB_URL)
@@ -58,6 +58,7 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   res.locals.success_msg = req.flash("success_msg");
   res.locals.error_msg = req.flash("error_msg");
+  res.locals.formatUsername = formatUsername;
   next();
 });
 

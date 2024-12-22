@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const axios = require("axios");
 const Place = require("../models/place");
-
+require("dotenv").config();
 // Koneksi MongoDB
 mongoose
-  .connect("mongodb://localhost:27017/bestpoints", {
+  .connect(process.env.DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -215,9 +215,9 @@ async function seedPlaces() {
         description: place.description,
         location: place.location,
         image: imageUrl,
+        author: "676440aa8294218e011e205a",
         reviews: [],
       };
-
       // Simpan data ke MongoDB
       await Place.create(placeData);
       console.log(`Saved: ${place.title}`);

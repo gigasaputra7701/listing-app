@@ -72,6 +72,10 @@
           <span class="fw-bold">Location: </span><%= place.location %>
         </li>
         <li class="mb-3">
+          <span class="fw-bold">Author: </span>
+          <%= formatUsername(place.author.username) %>
+        </li>
+        <li class="mb-3">
           <span class="fw-bold">Price: </span>
           <% if(place.price === 0) { %> <%= 'Gratis' %> <% } else { %> <%=
           formatRupiah(place.price) %> <% } %>
