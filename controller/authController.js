@@ -73,6 +73,16 @@ const getDetailsPlace = wrapAsync(async (req, res) => {
 const getEdit = wrapAsync(async (req, res) => {
   const { id } = req.params;
   const place = await Place.findById(id);
+  if (!place) {
+    req.flash("error_msg", "Place not found");
+    return res.redirect("/places");
+  }
+
+  // Periksa otorisasi
+  if (!place.author.equals(req.user._id)) {
+    req.flash("error_msg", "Not authorized");
+    return res.redirect("/places");
+  }
   res.render("places/edit", { place });
 });
 
@@ -80,6 +90,12 @@ const putEdit = [
   validatePlace,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
+    let place = await Place.findById(id);
+
+    if (!place.author.equals(req.user._id)) {
+      req.flash("error_msg", "Not authorized");
+      res.redirect(`/places}`);
+    }
     await Place.findByIdAndUpdate(id, { ...req.body.place });
     req.flash("success_msg", "Place edited successfully");
     res.redirect(`/places/${id}`);

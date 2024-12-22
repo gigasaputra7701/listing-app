@@ -10,7 +10,7 @@
           </small>
           <small class="font-monospace">Review: <%= review.body %></small>
           <small class="font-monospace">
-            By: <%= review.author.username %>
+            By: <%= formatUsername(review.author.username) %>
           </small>
           <% if ( currentUser && (review.author._id.equals(currentUser._id) ||
           place.author._id.equals(currentUser._id)) ) { %>
