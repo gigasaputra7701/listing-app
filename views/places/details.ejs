@@ -82,27 +82,22 @@
         </li>
       </ul>
     </div>
+    <% if(!currentUser) { %>
+    <div class="col-sm-6">
+      <%- include('../layouts/components/reviews') %>
+    </div>
+    <% } %>
   </div>
+  <% if(currentUser) { %>
   <div class="row mt-5 border-top pt-5">
     <div class="col-sm-4">
-      <h6 class="h5 mb-4 font-monospace text-uppercase text-underline">
-        <u>Leave a Review</u>
-      </h6>
       <%- include('../layouts/components/formReview') %>
     </div>
     <div class="col-sm-8">
       <div class="row">
-        <div class="d-flex justify-content-between">
-          <h6 class="h5 mb-4 font-monospace text-uppercase text-underline">
-            <u>All Reviews </u>
-          </h6>
-          <strong
-            >Average Rating: <%= calculateAverageRating(place.reviews)
-            %>⭐</strong
-          >
-        </div>
         <%- include('../layouts/components/reviews') %>
       </div>
     </div>
   </div>
+  <% } %>
 </div>

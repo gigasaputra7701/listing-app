@@ -1,5 +1,13 @@
 <% if(place.reviews.length > 0) { %>
 <div class="row">
+  <div class="d-flex justify-content-between">
+    <h6 class="h5 mb-4 font-monospace text-uppercase text-underline">
+      <u>All Reviews </u>
+    </h6>
+    <strong
+      >Average Rating: <%= calculateAverageRating(place.reviews) %>⭐</strong
+    >
+  </div>
   <% for(const review of place.reviews) { %>
   <div class="col-md-4 col-sm-6 mb-4">
     <ul class="list-group list-group-flush">
@@ -12,8 +20,7 @@
           <small class="font-monospace">
             By: <%= formatUsername(review.author.username) %>
           </small>
-          <% if ( currentUser && (review.author._id.equals(currentUser._id) ||
-          place.author._id.equals(currentUser._id)) ) { %>
+          <% if ( currentUser && review.author.equals(currentUser._id) ) { %>
           <form
             action="/places/<%= place._id %>/reviews/<%= review.id %>?_method=DELETE"
             method="POST"

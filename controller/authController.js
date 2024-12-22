@@ -11,7 +11,7 @@ const ErrorHandler = require("../utils/ErrorHandler");
 //Schemas
 const { placeSchema } = require("../schemas/place");
 const { reviewSchema } = require("../schemas/review");
-
+const { isAuthorPlace, isAuthorReview } = require("../middleware/isAuthor");
 // Validate
 const validatePlace = (req, res, next) => {
   const { error } = placeSchema.validate(req.body);
@@ -43,7 +43,10 @@ const getPlaces = wrapAsync(async (req, res) => {
 const postPlaces = [
   validatePlace,
   wrapAsync(async (req, res) => {
-    const place = new Place(req.body.place);
+    const place = new Place({
+      ...req.body.place,
+      author: req.user._id,
+    });
     await place.save();
     req.flash("success_msg", "Place added successfully");
     res.redirect(`/places/${place._id}`);
@@ -62,61 +65,49 @@ const getDetailsPlace = wrapAsync(async (req, res) => {
       path: "reviews",
       populate: {
         path: "author",
-        model: "User",
       },
     })
     .populate("author");
-
   res.render("places/details", { place, formatRupiah, calculateAverageRating });
 });
 
-const getEdit = wrapAsync(async (req, res) => {
-  const { id } = req.params;
-  const place = await Place.findById(id);
-  if (!place) {
-    req.flash("error_msg", "Place not found");
-    return res.redirect("/places");
-  }
-
-  // Periksa otorisasi
-  if (!place.author.equals(req.user._id)) {
-    req.flash("error_msg", "Not authorized");
-    return res.redirect("/places");
-  }
-  res.render("places/edit", { place });
-});
+const getEdit = [
+  isAuthorPlace,
+  wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const place = await Place.findById(id);
+    res.render("places/edit", { place });
+  }),
+];
 
 const putEdit = [
+  isAuthorPlace,
   validatePlace,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
-    let place = await Place.findById(id);
-
-    if (!place.author.equals(req.user._id)) {
-      req.flash("error_msg", "Not authorized");
-      res.redirect(`/places}`);
-    }
     await Place.findByIdAndUpdate(id, { ...req.body.place });
     req.flash("success_msg", "Place edited successfully");
     res.redirect(`/places/${id}`);
   }),
 ];
 
-const deletePlace = wrapAsync(async (req, res) => {
-  const { id } = req.params;
-  await Place.findByIdAndDelete(id);
-  req.flash("success_msg", "Place deleted successfully");
-  res.redirect("/places/");
-});
+const deletePlace = [
+  isAuthorPlace,
+  wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    await Place.findByIdAndDelete(id);
+    req.flash("success_msg", "Place deleted successfully");
+    res.redirect("/places/");
+  }),
+];
 
 const postReview = [
   validateReview,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
-
     const review = new Review({
       ...req.body.review,
-      author: req.user._id, // Isi field author dengan ID pengguna login
+      author: req.user._id,
     });
 
     const place = await Place.findById(id);
@@ -129,24 +120,16 @@ const postReview = [
   }),
 ];
 
-const deleteReview = wrapAsync(async (req, res) => {
-  const { id, review_id } = req.params;
-
-  const place = await Place.findById(id);
-  const review = await Review.findById(review_id);
-
-  if (
-    !place.author.equals(req.user._id) &&
-    !review.author.equals(req.user._id)
-  ) {
-    req.flash("error", "You do not have permission to do that!");
-    return res.redirect(`/places/${id}`);
-  }
-  await Place.findByIdAndUpdate(id, { $pull: { reviews: review_id } });
-  await Review.findByIdAndDelete(review_id);
-  req.flash("success_msg", "Review deleted successfully");
-  res.redirect(`/places/${id}`);
-});
+const deleteReview = [
+  isAuthorReview,
+  wrapAsync(async (req, res) => {
+    const { id, review_id } = req.params;
+    await Place.findByIdAndUpdate(id, { $pull: { reviews: review_id } });
+    await Review.findByIdAndDelete(review_id);
+    req.flash("success_msg", "Review deleted successfully");
+    res.redirect(`/places/${id}`);
+  }),
+];
 
 const getRegister = (req, res) => {
   res.render("auth/register");
