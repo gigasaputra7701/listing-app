@@ -8,24 +8,10 @@ const calculateAverageRating = require("../utils/totalRating");
 const formatUsername = require("../utils/formatUsername");
 const ErrorHandler = require("../utils/ErrorHandler");
 
-//Schemas
-const { placeSchema } = require("../schemas/place");
-
 // Middleware
 const { isAuthorPlace } = require("../middleware/isAuthor");
 const isAuth = require("../middleware/isAuth");
-
-// Validate
-const validatePlace = (req, res, next) => {
-  const { error } = placeSchema.validate(req.body);
-
-  if (error) {
-    const msg = error.details.map((el) => el.message).join(",");
-    return next(new ErrorHandler(msg, 400));
-  } else {
-    next();
-  }
-};
+const { validatePlace } = require("../middleware/validator");
 
 //Restful
 const getPlaces = wrapAsync(async (req, res) => {

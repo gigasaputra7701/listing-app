@@ -1,20 +1,16 @@
+// Models
 const Review = require("../models/review");
 const Place = require("../models/place");
+
+// Utils
 const wrapAsync = require("../utils/wrapAsync");
-const { reviewSchema } = require("../schemas/review");
+
+// Middleware
 const { isAuthorReview } = require("../middleware/isAuthor");
 const isAuth = require("../middleware/isAuth");
-const validateReview = (req, res, next) => {
-  const { error } = reviewSchema.validate(req.body);
+const { validateReview } = require("../middleware/validator");
 
-  if (error) {
-    const msg = error.details.map((el) => el.message).join(",");
-    return next(new ErrorHandler(msg, 400));
-  } else {
-    next();
-  }
-};
-
+// Restful
 const postReview = [
   isAuth,
   validateReview,
