@@ -3,7 +3,21 @@
   <div class="d-flex justify-content-between align-items-center">
     <h1>All Places</h1>
     <% if(currentUser) { %>
-    <a href="/places/create" class="btn btn-primary">Add New Place</a>
+    <a
+      href="/places/create"
+      class="btn btn-primary d-flex justify-content-between align-items-center py-2"
+      ><svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-geo-alt-fill"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"
+        /></svg
+    ></a>
     <% } %>
   </div>
 
@@ -35,8 +49,8 @@
           <a
             href="/places/<%= place._id %>"
             class="btn btn-primary fs-6 btn-card"
-            >See Details</a
-          >
+            >See Details
+          </a>
         </div>
       </div>
     </li>

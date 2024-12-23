@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg bg-dark fixed-top" data-bs-theme="dark">
-  <div class="container-fluid px-5">
+  <div class="container-fluid px-4">
+    <!-- Logo/Brand -->
     <a class="navbar-brand" href="/">BestPoint</a>
+
+    <!-- Toggler Button -->
     <button
       class="navbar-toggler"
       type="button"
@@ -12,10 +15,8 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div
-      class="collapse navbar-collapse d-flex justify-content-between"
-      id="navbarNav"
-    >
+
+    <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" href="/">Home</a>
@@ -24,10 +25,10 @@
           <a class="nav-link" href="/places">Places</a>
         </li>
       </ul>
-      <ul class="navbar-nav">
+      <ul class="navbar-nav ms-auto">
         <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle btn btn-primary"
+          <button
+            class="dropdown-toggle btn btn-primary px-2"
             href="#"
             id="navbarDropdown"
             role="button"
@@ -35,17 +36,22 @@
             aria-expanded="false"
           >
             <%= currentUser && currentUser.username ? "Hello, " +
-            formatUsername(currentUser.username) : "Account" %>
-          </a>
+            currentUser.username.charAt(0).toUpperCase() +
+            currentUser.username.slice(1) : "Account" %>
+          </button>
           <ul
-            class="dropdown-menu dropdown-menu-dark dropdown-menu-lg-end dropdown-menu-lg-start"
+            class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
             aria-labelledby="navbarDropdown"
           >
-            <% if(!currentUser) { %>
+            <% if (!currentUser) { %>
             <li><a class="dropdown-item" href="/login">Login</a></li>
             <li><hr class="dropdown-divider" /></li>
             <li><a class="dropdown-item" href="/register">Register</a></li>
             <% } else { %>
+            <li>
+              <a class="dropdown-item" href="/changepass">Change Password</a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
             <li>
               <a
                 class="dropdown-item"

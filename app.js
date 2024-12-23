@@ -12,7 +12,7 @@ const authUser = require("./routes/authUser");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user");
-const formatUsername = require("./middleware/formatUsername");
+
 const app = express();
 require("dotenv").config();
 
@@ -58,7 +58,6 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   res.locals.success_msg = req.flash("success_msg");
   res.locals.error_msg = req.flash("error_msg");
-  res.locals.formatUsername = formatUsername;
   next();
 });
 
@@ -78,6 +77,7 @@ const error = (err, req, res, next) => {
   if (!err.message) err.message = "Oh No, Something Went Wrong!";
   res.status(statusCode).render("error", { err });
 };
+
 app.use(error);
 
 const PORT = process.env.PORT;

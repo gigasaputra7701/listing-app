@@ -9,3 +9,4 @@ function formatUsername(username) {
 }
 
 module.exports = formatUsername;
+

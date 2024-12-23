@@ -6,7 +6,7 @@ const {
   getLogin,
   postLogin,
   logout,
-} = require("../controller/authController.js");
+} = require("../controller/user.js");
 
 router.get("/register", getRegister);
 router.post("/register", postRegister);

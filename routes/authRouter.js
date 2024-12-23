@@ -11,10 +11,10 @@ const {
   getEdit,
   putEdit,
   deletePlace,
-  postReview,
-  deleteReview,
   pageNotFound,
 } = require("../controller/authController.js");
+
+const { postReview, deleteReview } = require("../controller/review.js");
 
 router.get("/", getPlaces);
 router.post("/", isAuth, postPlaces);

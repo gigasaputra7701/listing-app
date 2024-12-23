@@ -1,31 +1,28 @@
 <% if(place.reviews.length > 0) { %>
 <div class="row">
-  <div class="d-flex justify-content-between">
-    <h6 class="h5 mb-4 font-monospace text-uppercase text-underline">
-      <u>All Reviews </u>
-    </h6>
-    <strong
-      >Average Rating: <%= calculateAverageRating(place.reviews) %>⭐</strong
-    >
-  </div>
+  <%- include('titleReview') %>
   <% for(const review of place.reviews) { %>
-  <div class="col-md-4 col-sm-6 mb-4">
+  <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
     <ul class="list-group list-group-flush">
       <li class="list-group-item border-bottom border-top">
+        <div class="d-flex justify-content-between">
         <div class="d-flex flex-column">
-          <small class="">
-            Rating : <% for(let i = 0; i < review.rating; i++) { %> ⭐ <% } %>
+          <small class="starability-result rating-custom" data-rating="<%= review.rating %>">
+          </small>
           </small>
           <small class="font-monospace">Review: <%= review.body %></small>
           <small class="font-monospace">
             By: <%= formatUsername(review.author.username) %>
           </small>
-          <% if ( currentUser && review.author.equals(currentUser._id) ) { %>
+        </div>
+        <% if ( currentUser && review.author.equals(currentUser._id) ) { %>
           <form
             action="/places/<%= place._id %>/reviews/<%= review.id %>?_method=DELETE"
             method="POST"
           >
-            <button class="btn btn-danger btn-sm mt-2">Delete</button>
+            <button class="btn btn-danger btn-sm mt-2 d-flex align-items-center justify-content-center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+              <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+            </svg></button>
           </form>
           <% } %>
         </div>
@@ -35,13 +32,16 @@
   <% } %>
 </div>
 <% } else { %>
-<div class="col-md-4 col-sm-6">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item border-bottom border-top">
-      <div class="d-flex flex-column">
-        <small class="font-monospace">No Review...</small>
-      </div>
-    </li>
-  </ul>
+<div class="row">
+  <%- include('titleReview') %>
+  <div class="col-md-4 col-sm-6">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item border-bottom border-top">
+        <div class="d-flex flex-column">
+          <small class="font-monospace">No Review...</small>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
 <% } %>

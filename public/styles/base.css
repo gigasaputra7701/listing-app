@@ -36,6 +36,10 @@ li {
   justify-content: space-between;
   height: 100%;
 }
+.rating-custom {
+  transform: scale(0.8);
+  margin-left: -16px;
+}
 figure {
   margin-bottom: 0;
 }
