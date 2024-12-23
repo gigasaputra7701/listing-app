@@ -14,6 +14,8 @@ const localStrategy = require("passport-local");
 const User = require("./models/user");
 
 const app = express();
+
+
 require("dotenv").config();
 
 //config mongodb
