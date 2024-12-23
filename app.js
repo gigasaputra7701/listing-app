@@ -15,7 +15,6 @@ const User = require("./models/user");
 
 const app = express();
 
-
 require("dotenv").config();
 
 //config mongodb
@@ -67,7 +66,7 @@ app.use((req, res, next) => {
 app.use("/places", authRouter);
 
 app.get("/", (req, res) => {
-  res.render("home");
+  res.render("index");
 });
 
 app.use("/", authUser);
