@@ -10,7 +10,62 @@
   <h1 class="text-center">
     Edit a <span class="text-success fw-bold">Place</span>
   </h1>
-  <div class="col-sm-6 mt-3 mx-auto">
-    <%- include('../layouts/components/formEdit') %>
+  <div class="row">
+    <div class="col-sm-6 mt-3 mx-auto">
+      <%- include('../layouts/components/formEdit') %>
+    </div>
+    <% if(place.images.length>0){ %>
+    <div class="col-sm-6 mt-3">
+      <div class="bg-light p-5 rounded">
+        <div class="form-group form-check">
+          <input
+            type="checkbox"
+            id="checkAll"
+            class="form-check-input"
+            checked
+          />
+          <label for="checkAll" class="form-check-label">Image</label>
+        </div>
+        <form action="/">
+          <div class="row">
+            <% place.images.forEach((image, index) => { %>
+            <div class="col-md-4 mt-2">
+              <div class="card mb-3">
+                <img
+                  src="/images/<%= image.filename %>"
+                  alt="<%= place.title %>"
+                  class="card-img-top"
+                />
+                <div class="card-body">
+                  <label for="<%= image._id %>" class="custom-checkbox">
+                    <input
+                      type="checkbox"
+                      name="images[]"
+                      id="<%= image._id %>"
+                      value="<%= image.url %>"
+                    />
+                    <span class="custom-checkbox-text">Pilih</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+          <div class="w-100">
+            <button class="btn btn-danger" type="submit">Delete Images</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <% } %>
   </div>
 </div>
+
+<script>
+  document.getElementById("checkAll").addEventListener("change", function () {
+    const checkboxes = document.getElementsByName("images[]");
+    for (let i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = this.checked;
+    }
+  });
+</script>
