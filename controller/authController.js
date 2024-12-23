@@ -1,12 +1,12 @@
 //Models
 const Place = require("../models/place");
-
+const fs = require("fs");
 //Utils
 const wrapAsync = require("../utils/wrapAsync");
 const formatRupiah = require("../utils/formatRupiah");
 const calculateAverageRating = require("../utils/totalRating");
 const formatUsername = require("../utils/formatUsername");
-const ErrorHandler = require("../utils/ErrorHandler");
+const ExpressError = require("../utils/ErrorHandler");
 
 // Middleware
 const isValidObjectId = require("../middleware/isValidObjectId");
@@ -86,7 +86,19 @@ const putEdit = [
   validatePlace,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
-    await Place.findByIdAndUpdate(id, { ...req.body.place });
+    const place = await Place.findByIdAndUpdate(id, { ...req.body.place });
+
+    if (req.files && req.files.length > 0) {
+      place.images.forEach((image) => {
+        fs.unlink(image.url, (err) => new ExpressError(err));
+      });
+      const images = req.files.map((file) => ({
+        url: file.path,
+        filename: file.filename,
+      }));
+      place.images = images;
+      await place.save();
+    }
     req.flash("success_msg", "Place edited successfully");
     res.redirect(`/places/${id}`);
   }),
@@ -98,14 +110,20 @@ const deletePlace = [
   isAuthorPlace,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
-    await Place.findByIdAndDelete(id);
+    const place = await Place.findById(id);
+    if (place.images.length > 0) {
+      place.images.forEach((image) => {
+        fs.unlink(image.url, (err) => new ExpressError(err));
+      });
+    }
+    await place.deleteOne();
     req.flash("success_msg", "Place deleted successfully");
     res.redirect("/places/");
   }),
 ];
 
 const pageNotFound = (req, res, next) => {
-  next(new ErrorHandler("Page not found", 404));
+  next(new ExpressError("Page not found", 404));
 };
 
 module.exports = {

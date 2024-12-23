@@ -8,7 +8,9 @@
         <h1>Details Place</h1>
         <% if(currentUser && place.author.equals(currentUser._id)) { %>
         <div class="d-flex gap-2">
-          <a href="/places/<%= place._id %>/edit/" class="btn btn-primary"
+          <a
+            href="/places/<%= place._id %>/edit/"
+            class="btn btn-primary d-flex justify-content-center align-items-center py-2"
             ><svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -24,7 +26,7 @@
           <!-- Button trigger modal -->
           <button
             type="button"
-            class="btn btn-danger"
+            class="btn btn-danger d-flex justify-content-center align-items-center py-2"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
           >

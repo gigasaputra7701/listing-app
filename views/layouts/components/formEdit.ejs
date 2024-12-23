@@ -3,6 +3,7 @@
   method="post"
   class="bg-light p-5 rounded validated-form"
   novalidate
+  enctype="multipart/form-data"
 >
   <div class="mb-3">
     <label for="title" class="form-label">Title Place</label>
@@ -75,14 +76,14 @@
     </div>
   </div>
   <div class="mb-3">
-    <label for="image" class="form-label">Image Url</label>
+    <label for="image" class="form-label">Image</label>
     <input
-      type="text"
-      name="place[image]"
-      id="image"
-      value="<%= place.image %>"
+      type="file"
       class="form-control"
-      required
+      name="image"
+      id="image"
+      accept="image/*"
+      multiple
     />
     <div class="valid-feedback">
       Loooks good!

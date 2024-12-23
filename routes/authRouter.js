@@ -14,13 +14,15 @@ const {
 
 const { postReview, deleteReview } = require("../controller/review.js");
 
-router
-  .route("/")
-  .get(getPlaces)
-  .post(upload.array('image', 5),postPlaces);
+router.route("/").get(getPlaces).post(upload.array("image", 5), postPlaces);
 
 router.get("/create", getCreate);
-router.route("/:id").get(getDetailsPlace).put(putEdit).delete(deletePlace);
+
+router
+  .route("/:id")
+  .get(getDetailsPlace)
+  .put(upload.array("image", 5), putEdit)
+  .delete(deletePlace);
 
 router.get("/:id/edit", getEdit);
 
