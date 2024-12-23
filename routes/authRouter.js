@@ -9,6 +9,7 @@ const {
   getEdit,
   putEdit,
   deletePlace,
+  deleteImage,
   pageNotFound,
 } = require("../controller/authController.js");
 
@@ -29,6 +30,8 @@ router.get("/:id/edit", getEdit);
 // Restful Review
 router.post("/:id/reviews", postReview);
 router.delete("/:id/reviews/:review_id", deleteReview);
+
+router.delete("/:id/images", deleteImage);
 
 // 404 Handler
 router.all("*", pageNotFound);

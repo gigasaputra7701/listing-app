@@ -122,6 +122,39 @@ const deletePlace = [
   }),
 ];
 
+const deleteImage = [
+  isValidObjectId("/places"),
+  isAuth,
+  isAuthorPlace,
+  wrapAsync(async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { images } = req.body;
+
+      if (!images || images.length === 0) {
+        req.flash(
+          "error_msg",
+          "Please select at least one image <br> to delete"
+        );
+        return res.redirect(`/places/${id}/edit`);
+      }
+
+      images.forEach((image) => {
+        fs.unlinkSync(image);
+      });
+
+      await Place.findByIdAndUpdate(id, {
+        $pull: { images: { url: { $in: images } } },
+      });
+      req.flash("success_msg", "Successfully deleted images");
+      return res.redirect(`/places/${id}`);
+    } catch (error) {
+      req.flash("error_msg", "Failed deleted images");
+      return res.redirect(`/places/${id}/edit`);
+    }
+  }),
+];
+
 const pageNotFound = (req, res, next) => {
   next(new ExpressError("Page not found", 404));
 };
@@ -134,5 +167,6 @@ module.exports = {
   getEdit,
   putEdit,
   deletePlace,
+  deleteImage,
   pageNotFound,
 };

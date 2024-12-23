@@ -18,15 +18,13 @@
     <div class="col-sm-6 mt-3">
       <div class="bg-light p-5 rounded">
         <div class="form-group form-check">
-          <input
-            type="checkbox"
-            id="checkAll"
-            class="form-check-input"
-            checked
-          />
-          <label for="checkAll" class="form-check-label">Image</label>
+          <input type="checkbox" id="checkAll" class="form-check-input" />
+          <label for="checkAll" class="form-check-label">Select All</label>
         </div>
-        <form action="/">
+        <form
+          action="/places/<%= place._id %>/images?_method=DELETE"
+          method="POST"
+        >
           <div class="row">
             <% place.images.forEach((image, index) => { %>
             <div class="col-md-4 mt-2">
@@ -68,4 +66,13 @@
       checkboxes[i].checked = this.checked;
     }
   });
+  const checkboxes = document.getElementsByName("images[]");
+  for (let i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].addEventListener("change", function () {
+      const allChecked = Array.from(checkboxes).every(
+        (checkbox) => checkbox.checked
+      );
+      document.getElementById("checkAll").checked = allChecked;
+    });
+  }
 </script>
