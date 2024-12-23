@@ -13,6 +13,7 @@ const { placeSchema } = require("../schemas/place");
 
 // Middleware
 const { isAuthorPlace } = require("../middleware/isAuthor");
+const isAuth = require("../middleware/isAuth");
 
 // Validate
 const validatePlace = (req, res, next) => {
@@ -33,6 +34,7 @@ const getPlaces = wrapAsync(async (req, res) => {
 });
 
 const postPlaces = [
+  isAuth,
   validatePlace,
   wrapAsync(async (req, res) => {
     const place = new Place({
@@ -45,9 +47,12 @@ const postPlaces = [
   }),
 ];
 
-const getCreate = (req, res) => {
-  res.render("places/create");
-};
+const getCreate = [
+  isAuth,
+  (req, res) => {
+    res.render("places/create");
+  },
+];
 
 const getDetailsPlace = wrapAsync(async (req, res) => {
   const { id } = req.params;
@@ -69,6 +74,7 @@ const getDetailsPlace = wrapAsync(async (req, res) => {
 });
 
 const getEdit = [
+  isAuth,
   isAuthorPlace,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
@@ -78,6 +84,7 @@ const getEdit = [
 ];
 
 const putEdit = [
+  isAuth,
   isAuthorPlace,
   validatePlace,
   wrapAsync(async (req, res) => {
@@ -89,6 +96,7 @@ const putEdit = [
 ];
 
 const deletePlace = [
+  isAuth,
   isAuthorPlace,
   wrapAsync(async (req, res) => {
     const { id } = req.params;

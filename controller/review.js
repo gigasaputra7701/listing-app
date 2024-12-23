@@ -3,6 +3,7 @@ const Place = require("../models/place");
 const wrapAsync = require("../utils/wrapAsync");
 const { reviewSchema } = require("../schemas/review");
 const { isAuthorReview } = require("../middleware/isAuthor");
+const isAuth = require("../middleware/isAuth");
 const validateReview = (req, res, next) => {
   const { error } = reviewSchema.validate(req.body);
 
@@ -15,6 +16,7 @@ const validateReview = (req, res, next) => {
 };
 
 const postReview = [
+  isAuth,
   validateReview,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
@@ -34,6 +36,7 @@ const postReview = [
 ];
 
 const deleteReview = [
+  isAuth,
   isAuthorReview,
   wrapAsync(async (req, res) => {
     const { id, review_id } = req.params;

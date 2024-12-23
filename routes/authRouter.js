@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const isValidObjectId = require("../middleware/isValidObjectId");
-const isAuth = require("../middleware/isAuth.js");
 
 const {
   getPlaces,
@@ -16,20 +15,21 @@ const {
 
 const { postReview, deleteReview } = require("../controller/review.js");
 
-router.get("/", getPlaces);
-router.post("/", isAuth, postPlaces);
+router.get("/", getPlaces).post("/", postPlaces);
 
-router.get("/create", isAuth, getCreate);
-router.get("/:id", isValidObjectId("/places"), getDetailsPlace);
-router.get("/:id/edit", isAuth, isValidObjectId("/places"), getEdit);
-router.put("/:id", isAuth, isValidObjectId("/places"), putEdit);
-router.delete("/:id", isAuth, isValidObjectId("/places"), deletePlace);
+router.get("/create", getCreate);
+router
+  .route("/:id")
+  .get(isValidObjectId("/places"), getDetailsPlace)
+  .put(isValidObjectId("/places"), putEdit)
+  .delete(isValidObjectId("/places"), deletePlace);
+
+router.get("/:id/edit", isValidObjectId("/places"), getEdit);
 
 // Restful Review
-router.post("/:id/reviews", isAuth, isValidObjectId("/places"), postReview);
+router.post("/:id/reviews", isValidObjectId("/places"), postReview);
 router.delete(
   "/:id/reviews/:review_id",
-  isAuth,
   isValidObjectId("/places"),
   deleteReview
 );
