@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const axios = require("axios");
 const Place = require("../models/place");
+// const axios = require("axios");
 require("dotenv").config();
 // Koneksi MongoDB
 mongoose
@@ -16,28 +16,28 @@ mongoose
   });
 
 // Unsplash API Configuration
-const UNSPLASH_ACCESS_KEY = "0Zac4yMUpD8_XnrB1Ts87sseJQt9PERrPRQLZIIbufs"; // Ganti dengan Access Key Anda
-const unsplashEndpoint = "https://api.unsplash.com/photos/random";
+// const UNSPLASH_ACCESS_KEY = "0Zac4yMUpD8_XnrB1Ts87sseJQt9PERrPRQLZIIbufs";
+// const unsplashEndpoint = "https://api.unsplash.com/photos/random";
 
 // Fungsi untuk mendapatkan URL gambar dari Unsplash
-async function fetchUnsplashImage(query) {
-  try {
-    const response = await axios.get(unsplashEndpoint, {
-      headers: {
-        Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}`,
-      },
-      params: {
-        query, // Kata kunci untuk pencarian gambar
-        orientation: "landscape",
-      },
-    });
+// async function fetchUnsplashImage(query) {
+//   try {
+//     const response = await axios.get(unsplashEndpoint, {
+//       headers: {
+//         Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}`,
+//       },
+//       params: {
+//         query, // Kata kunci untuk pencarian gambar
+//         orientation: "landscape",
+//       },
+//     });
 
-    return response.data.urls.regular; // URL gambar ukuran reguler
-  } catch (err) {
-    console.error(`Error fetching image for query "${query}":`, err.message);
-    return "https://via.placeholder.com/1280x720"; // URL fallback
-  }
-}
+//     return response.data.urls.regular; // URL gambar ukuran reguler
+//   } catch (err) {
+//     console.error(`Error fetching image for query "${query}":`, err.message);
+//     return "https://via.placeholder.com/1280x720"; // URL fallback
+//   }
+// }
 
 // Data tempat
 const places = [
@@ -93,7 +93,7 @@ const places = [
     title: "Bukit Bintang",
     price: 0,
     description: "Kawasan perbelanjaan dan hiburan di Kuala Lumpur, Malaysia",
-    location: "Kuala Lumpur, Federal Territory of Kuala Lumpur, Malaysia",
+    location: "Federal Territory of Kuala Lumpur, Malaysia",
     query: "Bukit Bintang",
   },
   {
@@ -208,13 +208,15 @@ async function seedPlaces() {
 
     for (let place of places) {
       // Dapatkan URL gambar dari Unsplash
-      const imageUrl = await fetchUnsplashImage(place.query);
       const placeData = {
         title: place.title,
         price: place.price,
         description: place.description,
         location: place.location,
-        image: imageUrl,
+        images: {
+          url: "public\\images\\image-1734949829882-9855772761.jpg",
+          filename: "image-1734949829882-9855772761.jpg",
+        },
         author: "676440aa8294218e011e205a",
         reviews: [],
       };

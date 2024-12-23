@@ -1,0 +1,57 @@
+<% if(place.images.length>0){ %>
+<div class="col-sm-6 mt-3">
+  <div class="bg-light p-5 rounded">
+    <div class="form-group form-check">
+      <input type="checkbox" id="checkAll" class="form-check-input" />
+      <label for="checkAll" class="form-check-label">Select All</label>
+    </div>
+    <form action="/places/<%= place._id %>/images?_method=DELETE" method="POST">
+      <div class="row">
+        <% place.images.forEach((image, index) => { %>
+        <div class="col-md-4 mt-2">
+          <div class="card mb-3">
+            <img
+              src="/images/<%= image.filename %>"
+              alt="<%= place.title %>"
+              class="card-img-top form-img"
+            />
+            <div class="card-body">
+              <label for="<%= image._id %>" class="custom-checkbox">
+                <input
+                  type="checkbox"
+                  name="images[]"
+                  id="<%= image._id %>"
+                  value="<%= image.url %>"
+                />
+                <span class="custom-checkbox-text">Select</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+      <div class="w-100">
+        <button class="btn btn-danger" type="submit">Delete Images</button>
+      </div>
+    </form>
+  </div>
+</div>
+<% } %>
+
+<script>
+  document.getElementById("checkAll").addEventListener("change", function () {
+    const checkboxes = document.getElementsByName("images[]");
+    for (let i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = this.checked;
+    }
+  });
+  const checkboxes = document.getElementsByName("images[]");
+  for (let i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].addEventListener("change", function () {
+      const allChecked = Array.from(checkboxes).every(
+        (checkbox) => checkbox.checked
+      );
+      document.getElementById("checkAll").checked = allChecked;
+    });
+  }
+</script>
