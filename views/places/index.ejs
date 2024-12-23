@@ -26,11 +26,52 @@
     <li class="col-md-4 mb-4 col-sm-6">
       <div class="card card-custom shadow-sm rounded overflow-hidden">
         <div class="card-img">
-          <img
-            class="img-fluid img-places"
-            src="<%= place.image %>"
-            alt="<%= place.title %>"
-          />
+          <div
+            class="carousel slide carousel-fade"
+            data-bs-ride="carousel"
+            id="<%= place._id %>"
+          >
+            <div class="carousel-inner">
+              <% place.images.forEach((image, index)=> { %>
+              <div
+                class="carousel-item <%= index === 0 ? 'active': '' %>"
+                data-bs-interval="4000"
+              >
+                <img
+                  src="/images/<%=image.filename %>"
+                  class="d-block w-100 img-fluid img-places"
+                  alt="<%= place.title %>"
+                />
+              </div>
+              <% }) %>
+            </div>
+            <% if (place.images.length > 1) { %>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#<%= place._id %>"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#<%= place._id %>"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+            <% } %>
+          </div>
         </div>
         <div class="card-body">
           <figure>

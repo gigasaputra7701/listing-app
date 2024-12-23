@@ -9,6 +9,7 @@ const formatUsername = require("../utils/formatUsername");
 const ErrorHandler = require("../utils/ErrorHandler");
 
 // Middleware
+const isValidObjectId = require("../middleware/isValidObjectId");
 const { isAuthorPlace } = require("../middleware/isAuthor");
 const isAuth = require("../middleware/isAuth");
 const { validatePlace } = require("../middleware/validator");
@@ -23,8 +24,14 @@ const postPlaces = [
   isAuth,
   validatePlace,
   wrapAsync(async (req, res) => {
+    const images = req.files.map((file) => ({
+      url: file.path,
+      filename: file.filename,
+    }));
+
     const place = new Place({
       ...req.body.place,
+      images: images,
       author: req.user._id,
     });
     await place.save();
@@ -40,26 +47,29 @@ const getCreate = [
   },
 ];
 
-const getDetailsPlace = wrapAsync(async (req, res) => {
-  const { id } = req.params;
-
-  const place = await Place.findById(id)
-    .populate({
-      path: "reviews",
-      populate: {
-        path: "author",
-      },
-    })
-    .populate("author");
-  res.render("places/details", {
-    place,
-    formatRupiah,
-    calculateAverageRating,
-    formatUsername,
-  });
-});
+const getDetailsPlace = [
+  isValidObjectId("/places"),
+  wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const place = await Place.findById(id)
+      .populate({
+        path: "reviews",
+        populate: {
+          path: "author",
+        },
+      })
+      .populate("author");
+    res.render("places/details", {
+      place,
+      formatRupiah,
+      calculateAverageRating,
+      formatUsername,
+    });
+  }),
+];
 
 const getEdit = [
+  isValidObjectId("/places"),
   isAuth,
   isAuthorPlace,
   wrapAsync(async (req, res) => {
@@ -70,6 +80,7 @@ const getEdit = [
 ];
 
 const putEdit = [
+  isValidObjectId("/places"),
   isAuth,
   isAuthorPlace,
   validatePlace,
@@ -82,6 +93,7 @@ const putEdit = [
 ];
 
 const deletePlace = [
+  isValidObjectId("/places"),
   isAuth,
   isAuthorPlace,
   wrapAsync(async (req, res) => {

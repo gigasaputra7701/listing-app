@@ -6,12 +6,14 @@ const Place = require("../models/place");
 const wrapAsync = require("../utils/wrapAsync");
 
 // Middleware
+const isValidObjectId = require("../middleware/isValidObjectId");
 const { isAuthorReview } = require("../middleware/isAuthor");
 const isAuth = require("../middleware/isAuth");
 const { validateReview } = require("../middleware/validator");
 
 // Restful
 const postReview = [
+  isValidObjectId("/places"),
   isAuth,
   validateReview,
   wrapAsync(async (req, res) => {
@@ -32,6 +34,7 @@ const postReview = [
 ];
 
 const deleteReview = [
+  isValidObjectId("/places"),
   isAuth,
   isAuthorReview,
   wrapAsync(async (req, res) => {

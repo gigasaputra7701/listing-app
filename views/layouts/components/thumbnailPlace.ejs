@@ -1,8 +1,13 @@
 <div class="card bg-dark text-white card-thumbnail">
+  <% if (place.images && place.images.length > 0) { %> <%
+  place.images.forEach((image) => { %>
   <div
     class="img-fluid img-details"
-    style="background-image: url(<%=place.image%>);"
+    style="background-image: url('/images/<%=image.filename %>');"
   ></div>
+  <% }) %> <% } else { %>
+  <p>No images available for this place.</p>
+  <% } %>
   <div class="card-img-overlay d-flex flex-column">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
