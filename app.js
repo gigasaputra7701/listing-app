@@ -12,6 +12,7 @@ const authUser = require("./routes/authUser");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user");
+const hereMaps = require("./utils/hereMaps");
 
 const app = express();
 

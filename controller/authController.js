@@ -6,6 +6,7 @@ const wrapAsync = require("../utils/wrapAsync");
 const formatRupiah = require("../utils/formatRupiah");
 const calculateAverageRating = require("../utils/totalRating");
 const formatUsername = require("../utils/formatUsername");
+const { geometry } = require("../utils/hereMaps");
 const ExpressError = require("../utils/ErrorHandler");
 
 // Middleware
@@ -29,9 +30,12 @@ const postPlaces = [
       filename: file.filename,
     }));
 
+    const geoData = await geometry(req.body.place.location);
+
     const place = new Place({
       ...req.body.place,
       images: images,
+      geometry: geoData,
       author: req.user._id,
     });
     await place.save();
@@ -86,7 +90,11 @@ const putEdit = [
   validatePlace,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
-    const place = await Place.findByIdAndUpdate(id, { ...req.body.place });
+    const geoData = await geometry(req.body.place.location);
+    const place = await Place.findByIdAndUpdate(id, {
+      ...req.body.place,
+      geometry: geoData,
+    });
 
     if (req.files && req.files.length > 0) {
       place.images.forEach((image) => {
