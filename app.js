@@ -65,11 +65,6 @@ app.use((req, res, next) => {
 
 //Routes
 app.use("/places", authRouter);
-
-app.get("/", (req, res) => {
-  res.render("index");
-});
-
 app.use("/", authUser);
 
 // Error Handler

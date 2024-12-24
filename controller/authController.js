@@ -18,7 +18,16 @@ const { validatePlace } = require("../middleware/validator");
 //Restful
 const getPlaces = wrapAsync(async (req, res) => {
   const places = await Place.find();
-  res.render("places/index", { places });
+  const clusteringPlace = places.map((place) => {
+    return {
+      latitude: place.geometry.coordinates[1],
+      longitude: place.geometry.coordinates[0],
+    };
+  });
+
+  const clusteredPlace = JSON.stringify(clusteringPlace);
+  console.log(clusteredPlace);
+  res.render("places/index", { places, clusteredPlace });
 });
 
 const postPlaces = [

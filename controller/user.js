@@ -3,6 +3,10 @@ const passport = require("passport");
 //Utils
 const wrapAsync = require("../utils/wrapAsync");
 
+const getIndex = (req, res) => {
+  res.render("index");
+};
+
 const getRegister = (req, res) => {
   const auth = req.isAuthenticated();
   if (!auth) {
@@ -69,6 +73,7 @@ const logout = (req, res) => {
 };
 
 module.exports = {
+  getIndex,
   getRegister,
   postRegister,
   getLogin,
